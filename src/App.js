@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import './App.css';
+import TopBar from './top-bar/Top-bar';
 import BottomBar from './bottom-bar/Bottom-bar';
 import ProductItem from './shopping-list/Product-item';
 
@@ -13,15 +14,12 @@ function App() {
 
 	return (
 		<div className="App">
-			<div className="Input-area">
-				<input type="text" placeholder="Toque para adicionar"
-					className="Input-area__text" autoFocus />
+			<TopBar />
+			<div className="p-sides-10px">
+				{state.products.map(product =>
+					<ProductItem key={product.id} {...product} />
+				)}
 			</div>
-			{/* {ProductList()} */}
-
-			{state.products.map(product =>
-				<ProductItem key={product.id} {...product} />
-			)}
 
 			<BottomBar />
 		</div>
@@ -29,7 +27,7 @@ function App() {
 }
 
 function fetchProducts() {
-	return fetch('http://localhost:3000/products')
+	return fetch('http://192.168.25.10:3000/products')
 		.then(response => response.json())
 }
 

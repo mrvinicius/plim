@@ -12,15 +12,22 @@ export default function NumberSpinner({ quantity, min, ...otherProps }) {
     }
 
     return (
-        <div>
+        <div className="Number-spinner">
             <input type="number"
+                className="Number-spinner__input w50pct h100pct center"
                 min={min}
                 value={count}
                 onChange={e => update(parseInt(e.target.value, 10))}
                 onBlur={e => e.target.value = parseInt(e.target.value, 10)}
                 {...otherProps} />
-            <button aria-label="Aumentar" onClick={() => update(count + 1)}>+</button>
-            <button aria-label="Diminuir" onClick={() => update(count - 1)}>-</button>
+
+            <button aria-label="Aumentar"
+                className="Number-spinner__button"
+                onClick={() => update(count + 1)}>+</button>
+
+            <button aria-label="Diminuir"
+                className="Number-spinner__button"
+                onClick={() => update(count - 1)}>-</button>
         </div>
     )
 }

@@ -1,4 +1,12 @@
 .Product-item {
     display: flex;
-    padding: 20px 5px;
+    padding: 20px 0;
+}
+
+.Product-item__name {
+    flex-grow: 1;
+}
+
+.Product-item .Number-spinner {
+    flex-basis: 20%;
 }

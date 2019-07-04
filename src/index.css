@@ -18,8 +18,17 @@ body {
 	font-size: 16px;
 }
 
-button:not([class]) {
+/* reset button */
+button {
 	border: none;
 	padding: 0;
 	background-color: transparent;
+}
+
+/* reset input */
+input[type="text"],
+input[type="number"] {
+	border: none;
+	padding: 0;
+	width: 100%;
 }

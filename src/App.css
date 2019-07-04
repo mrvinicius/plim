@@ -1,23 +1,44 @@
-.App .Bottom-bar {
-    position: fixed;
-    bottom: 0;
-    z-index: 5;
-    width: 100%;
-    padding: 10px;
+.white {
+    background-color: #fff;
 }
 
-.Input-area {
-    width: 100%;
-    height: 50px;
-    background-color: rgba(0, 0, 0, 0.274);
+.center {
+    text-align: center;
 }
 
-.Input-area__text {
+.p-sides-10px {
+    padding: 0 10px;
+}
+
+.w100pct {
     width: 100%;
+}
+
+.h100pct {
     height: 100%;
+}
+
+.transparent {
+    background-color: transparent;
+}
+
+.black-light {
+    background-color: hsla(0, 0%, 18%, 1);
 }
 
 button img,
 button i {
     vertical-align: middle;
+}
+
+/* :not([class$="btn-flat"]):not([class$="btn-icon"]):not(:not([class])) */
+
+.btn {
+    height: 36px;
+    padding: 0 1em;
+    border-radius: 3px;
+}
+
+.btn {
+    color: white;
 }
