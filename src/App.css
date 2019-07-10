@@ -31,14 +31,24 @@ button i {
     vertical-align: middle;
 }
 
-/* :not([class$="btn-flat"]):not([class$="btn-icon"]):not(:not([class])) */
-
 .btn {
     height: 36px;
     padding: 0 1em;
     border-radius: 3px;
+    color: white;
+    font-weight: bold;
 }
 
-.btn {
-    color: white;
+.list {
+    padding-top: 0.5em;
+}
+
+.list>.list__item {
+    padding-top: 0.7em;
+    padding-bottom: 0.7em;
+}
+
+.big-input,
+.big-input::placeholder {
+    font-size: 1.1rem;
 }

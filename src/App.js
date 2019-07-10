@@ -27,7 +27,7 @@ function App() {
 }
 
 function fetchProducts() {
-	return fetch('http://192.168.25.10:3000/products')
+	return fetch('/products')
 		.then(response => response.json())
 }
 

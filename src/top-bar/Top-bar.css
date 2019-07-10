@@ -1,27 +1,48 @@
 .Top-bar {
+    height: 80px;
+}
+
+.Top-bar__fixed-container {
+    position: static;
+    z-index: 20;
     display: flex;
     width: 100%;
-    height: 70px;
+    height: inherit;
     background-color: rgba(0, 0, 0, 0.05);
+    background-color: #f2f2f2;
     transition: height 150ms ease-out;
 }
 
-.Top-bar button:last-of-type {
+
+.Top-bar__drop-down-wrapper {
+    position: fixed;
+    top: 50px;
+    bottom: 0;
+    left: 0;
+    z-index: -10;
+    opacity: 0;
+    transition: opacity 150ms linear;
+}
+
+.Top-bar.active .Top-bar__drop-down-wrapper {
+    z-index: 10;
+    opacity: 1;
+}
+
+.Top-bar__fixed-container button:last-of-type {
     display: none;
 }
 
-.Top-bar.active {
-    height: 46px;
+.Top-bar.active .Top-bar__fixed-container {
+    position: fixed;
+    height: 50px;
+    box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.3);
 }
 
-.Top-bar.active button:first-of-type {
+.Top-bar.active .Top-bar__fixed-container button:first-of-type {
     display: none;
 }
 
-.Top-bar.active button:last-of-type {
+.Top-bar.active .Top-bar__fixed-container button:last-of-type {
     display: initial;
-}
-
-.big-input::placeholder {
-    font-size: 1.1rem;
 }

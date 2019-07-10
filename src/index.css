@@ -32,3 +32,13 @@ input[type="number"] {
 	padding: 0;
 	width: 100%;
 }
+
+.reset-list {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.no-outline:focus {
+	outline: none;
+}
