@@ -1,6 +1,8 @@
 .Product-item {
     display: flex;
-    padding: 20px 0;
+    padding: 15px 0;
+    align-items: center;
+    user-select: none;
 }
 
 .Product-item__name {
@@ -8,5 +10,5 @@
 }
 
 .Product-item .Number-spinner {
-    flex-basis: 20%;
+    flex-basis: 34%;
 }
