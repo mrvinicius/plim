@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router } from "react-router-dom";
 
 import './App.css';
 import TopBar from './top-bar/Top-bar';
@@ -13,16 +14,18 @@ function App() {
 	}, []);
 
 	return (
-		<div className="App">
-			<TopBar />
-			<div className="p-sides-10px">
-				{state.products.map(product =>
-					<ProductItem key={product.id} {...product} />
-				)}
-			</div>
+		<Router>
+			<div className="App">
+				<TopBar />
+				<div className="p-sides-10px">
+					{state.products.map(product =>
+						<ProductItem key={product.id} {...product} />
+					)}
+				</div>
 
-			<BottomBar />
-		</div>
+				<BottomBar />
+			</div>
+		</Router>
 	);
 }
 
