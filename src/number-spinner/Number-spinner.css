@@ -1,23 +1,28 @@
 .Number-spinner {
     display: flex;
     border: 1px solid black;
-    /* border-radius: 4px;
-    overflow: hidden; */
     height: 46px;
 }
 
-.Number-spinner .Number-spinner__input {
-    /* float: left; */
-    /* width: 50%; */
-    display: block;
-    flex-basis: fill;
+
+.Number-spinner__button {
+    flex-basis: 34px;
+    flex-shrink: 0;
 }
 
-.Number-spinner .Number-spinner__button {
-    /* float: right; */
-    /* display: block; */
-    /* width: 25%; */
-    /* height: 50%; */
-    min-width: 36px;
-    height: 100%;
+.Number-spinner__input {
+    min-width: 1.8em;
+}
+
+.Number-spinner__input::-webkit-outer-spin-button,
+.Number-spinner__input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    /* Apparently some margin are still there even though it's hidden */
+    margin: 0;
+}
+
+.Number-spinner__input[type=number] {
+    /* Firefox */
+    -moz-appearance: textfield;
 }

@@ -17,7 +17,7 @@ export default function NumberSpinner({ quantity, min, ...otherProps }) {
                 className="Number-spinner__button"
                 onClick={() => update(count - 1)}>-</button>
             <input type="number"
-                className="Number-spinner__input big-input w50pct h100pct center"
+                className="Number-spinner__input big-input center"
                 min={min}
                 value={count}
                 onChange={e => update(parseInt(e.target.value, 10))}
