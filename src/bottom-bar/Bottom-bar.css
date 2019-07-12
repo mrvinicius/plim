@@ -1,8 +1,4 @@
 .Bottom-bar {
-    margin-bottom: 56px;
-}
-
-.Bottom-bar__fixed-container {
     position: fixed;
     bottom: 0;
     z-index: 5;
