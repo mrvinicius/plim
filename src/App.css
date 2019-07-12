@@ -2,6 +2,22 @@
     padding-bottom: 56px;
 }
 
+.App__dropdown {
+    position: fixed;
+    top: 50px;
+    bottom: 0;
+    left: 0;
+    z-index: -10;
+    width: 100%;
+    opacity: 0;
+    transition: opacity 150ms linear;
+}
+
+.App__dropdown.active {
+    z-index: 10;
+    opacity: 1;
+}
+
 .white {
     background-color: #fff;
 }
