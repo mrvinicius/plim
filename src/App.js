@@ -8,6 +8,7 @@ import ProductItem from './shopping-list/Product-item';
 
 function App({ history }) {
 	const [products, setProducts] = useState([]),
+		[topBarInputValue, setTopBarInputValue] = useState(''),
 		[isTopBarActive, setIsTopBarActive] = useState(false);
 
 	const activate = () => {
@@ -24,7 +25,10 @@ function App({ history }) {
 		history.replace('', { alreadyActivatedBefore: true })
 		history.push('');
 	};
-	const inactivate = () => setIsTopBarActive(false);
+	const inactivate = () => {
+		setIsTopBarActive(false);
+		setTopBarInputValue('');
+	}
 
 	useEffect(() => {
 		fetchProducts().then(prods => setProducts(prods));
@@ -46,22 +50,24 @@ function App({ history }) {
 	return (
 
 		<div className="App">
+			<TopBar inputValue={topBarInputValue}
+				isActive={isTopBarActive}
+				onChange={e => setTopBarInputValue(e.target.value)}
+				activate={activate}
+				goBack={() => history.goBack()} />
+
+			<div className="p-sides-10px">
+				{products.map(product =>
+					<ProductItem key={product.id} {...product} />
+				)}
+			</div>
+
 			<div className={`App__dropdown p-sides-10px white ${dropdownClass}`}>
 				<ul className="list reset-list">
 					<li className="list__item">ADD</li>
 					<li className="list__item">Autocomplete</li>
 					<li className="list__item">Histórico</li>
 				</ul>
-			</div>
-
-			<TopBar activate={activate}
-				goBack={() => history.goBack()}
-				isActive={isTopBarActive} />
-
-			<div className="p-sides-10px">
-				{products.map(product =>
-					<ProductItem key={product.id} {...product} />
-				)}
 			</div>
 
 			<BottomBar />
