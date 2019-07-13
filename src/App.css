@@ -59,6 +59,10 @@ button i {
     font-weight: bold;
 }
 
+.btn__icon {
+    margin-right: 0.5em;
+}
+
 .list {
     padding-top: 0.5em;
 }
