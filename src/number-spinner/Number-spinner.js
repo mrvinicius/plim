@@ -2,12 +2,13 @@ import React, { useState } from 'react';
 
 import './Number-spinner.css';
 
-export default function NumberSpinner({ quantity, min, ...inputProps }) {
+export default function NumberSpinner({ quantity, min, onChange, ...inputProps }) {
     const [count, setCount] = useState(quantity >= min ? quantity : 0);
 
     const update = newValue => {
         if (newValue >= min) {
-            setCount(newValue)
+            setCount(newValue);
+            onChange(newValue);
         }
     }
 

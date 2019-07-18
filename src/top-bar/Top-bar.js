@@ -18,6 +18,7 @@ function TopBar({ inputValue, isActive, onChange, activate, goBack }) {
                     value={inputValue}
                     onClick={activate}
                     onChange={onChange}
+                    aria-label="Adicionar Produto"
                     autoFocus />
                 <button title="Open navigation bar" className="btn-icon">
                     <img src={menuIcon} alt="Open navigation bar" />

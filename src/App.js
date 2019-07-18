@@ -3,8 +3,8 @@ import { withRouter } from 'react-router-dom';
 
 import './App.css';
 import TopBar from './top-bar/Top-bar';
-import BottomBar from './bottom-bar/Bottom-bar';
-import ProductItem from './shopping-list/Product-item';
+// import BottomBar from './bottom-bar/Bottom-bar';
+import ProductList from './shopping-list/Product-list';
 
 function App({ history }) {
 	const [products, setProducts] = useState([]),
@@ -56,11 +56,7 @@ function App({ history }) {
 				activate={activate}
 				goBack={() => history.goBack()} />
 
-			<div className="p-sides-10px">
-				{products.map(product =>
-					<ProductItem key={product.id} {...product} />
-				)}
-			</div>
+			<ProductList products={products} onChange={updateProduct} />
 
 			<div className={`App__dropdown p-sides-10px white ${dropdownClass}`}>
 				<ul className="list reset-list">
@@ -70,7 +66,7 @@ function App({ history }) {
 				</ul>
 			</div>
 
-			<BottomBar />
+			{/* <BottomBar /> */}
 		</div>
 
 	);
@@ -79,6 +75,17 @@ function App({ history }) {
 function fetchProducts() {
 	return fetch('/products')
 		.then(response => response.json())
+}
+
+function updateProduct({ id, ...product }) {
+	console.log('product', product)
+	return fetch(`/products/${id}`, {
+		method: 'PATCH',
+		headers: {
+			'Content-Type': 'application/json'
+		},
+		body: JSON.stringify(product)
+	}).then(response => response.json());
 }
 
 export default withRouter(App);

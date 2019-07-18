@@ -6,9 +6,8 @@
 }
 
 .Product-item__name {
-    flex-grow: 1;
-}
-
-.Product-item .Number-spinner {
-    flex-basis: 34%;
+    flex-shrink: 0;
+    flex-basis: 66%;
+    max-width: 66%;
+    font-size: 1.2em;
 }
