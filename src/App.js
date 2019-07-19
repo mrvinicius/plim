@@ -31,7 +31,7 @@ function App({ history }) {
 	}
 
 	useEffect(() => {
-		fetchProducts().then(prods => setProducts(prods));
+		listProducts().then(prods => setProducts(prods));
 	}, []);
 
 	useEffect(() => {
@@ -72,20 +72,31 @@ function App({ history }) {
 	);
 }
 
-function fetchProducts() {
-	return fetch('/products')
-		.then(response => response.json())
+function partial(fn, ...presetArgs) {
+	return function partiallyApplied(...laterArgs) {
+		return fn(...presetArgs, ...laterArgs);
+	};
 }
 
-function updateProduct({ id, ...product }) {
-	console.log('product', product)
-	return fetch(`/products/${id}`, {
-		method: 'PATCH',
+function fetchProducts(data, product) {
+	const URI = `/products${product && product.id ? `/${product.id}` : '/'}`;
+
+	return fetch(URI, {
 		headers: {
 			'Content-Type': 'application/json'
 		},
-		body: JSON.stringify(product)
+		...data,
+		body: product && JSON.stringify(product)
 	}).then(response => response.json());
 }
+
+const addProduct = partial(fetchProducts, { method: 'POST' });
+
+const updateProduct = partial(fetchProducts, { method: 'PATCH' });
+
+
+const listProducts = () => fetch('/products').then(response => response.json());
+const getProduct = id => fetch(`/products/${id}`).then(response => response.json());
+const removeProduct = id => fetch(`/products/${id}`, { method: 'DELETE' }).then(response => response.json());
 
 export default withRouter(App);
