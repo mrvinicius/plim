@@ -96,7 +96,10 @@ function App({ history }) {
 
 				{isTopBarActive && filterProducts(topBarInputValue)
 					.map(({ id, name }) =>
-						<TypeaheadOption key={id} children={name} />
+						<TypeaheadOption key={id}
+							children={name}
+							onSelect={() => setTopBarInputValue(name)}
+							onComplete={() => setTopBarInputValue(name)} />
 					)}
 			</TypeaheadDropdown>
 

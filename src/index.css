@@ -49,3 +49,7 @@ input[list]::-webkit-calendar-picker-indicator {
 .no-outline:focus {
 	outline: none;
 }
+
+[hidden] {
+	display: none !important;
+}

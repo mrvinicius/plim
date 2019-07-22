@@ -6,6 +6,10 @@
     text-align: center;
 }
 
+.left {
+    text-align: left;
+}
+
 .p-sides-10px {
     padding: 0 10px;
 }
@@ -52,10 +56,17 @@ button i {
 }
 
 .list>.list__item {
+    display: flex;
     padding-top: 10px;
     padding-bottom: 10px;
     height: 56px;
 }
+
+.list__item>.list__option-main-action {
+    flex-grow: 1;
+}
+
+.list__item .list__right-icon {}
 
 .big-input {
     font-size: 1.1em;
