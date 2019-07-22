@@ -4,7 +4,7 @@ import './Top-bar.css';
 import menuIcon from './menu-icon.svg';
 import closeIcon from './close-icon.svg';
 
-function TopBar({ inputValue, isActive, onChange, activate, goBack }) {
+function TopBar({ isActive, goBack, ...inputProps }) {
 
     const [placeholderText, className] = isActive
         ? ['Produto', 'active']
@@ -15,11 +15,10 @@ function TopBar({ inputValue, isActive, onChange, activate, goBack }) {
             <div className="Top-bar__fixed-container p-sides-10px">
                 <input type="text" placeholder={placeholderText}
                     className="big-input h100pct transparent no-outline"
-                    value={inputValue}
-                    onClick={activate}
-                    onChange={onChange}
                     aria-label="Adicionar Produto"
-                    autoFocus />
+                    autoComplete="off"
+                    autoFocus
+                    {...inputProps} />
                 <button title="Open navigation bar" className="btn-icon">
                     <img src={menuIcon} alt="Open navigation bar" />
                 </button>

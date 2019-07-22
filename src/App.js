@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
+import fuzzysort from 'fuzzysort';
 
 import './App.css';
 import TopBar from './top-bar/Top-bar';
 // import BottomBar from './bottom-bar/Bottom-bar';
 import ProductList from './shopping-list/Product-list';
+import TypeaheadDropdown, { TypeaheadOption } from './typeahead-dropdown/Typeahead-dropdown';
 
 function App({ history }) {
 	const [products, setProducts] = useState([]),
@@ -12,26 +14,55 @@ function App({ history }) {
 		[isTopBarActive, setIsTopBarActive] = useState(false);
 
 	const activate = () => {
+		if (isTopBarActive)
+			return;
+
 		setIsTopBarActive(true);
 
 		if (history.location.state
 			&& history.location.state.alreadyActivatedBefore) {
 
 			history.goForward();
-
 			return;
 		}
 
 		history.replace('', { alreadyActivatedBefore: true })
 		history.push('');
 	};
+
 	const inactivate = () => {
 		setIsTopBarActive(false);
 		setTopBarInputValue('');
 	}
 
+	const filterProducts = searchedText => {
+		if (searchedText.length) {
+			console.log(searchedText.length);
+
+			const fuzzyResult = fuzzysort.go(searchedText, products, {
+				key: 'name',
+				limit: 8,
+				allowTypo: false,
+				threshold: -10000
+			})
+
+			return fuzzyResult.reduce((filtered, result) => {
+				// No need to include option that is already suggested
+				// based on the searched value
+				if (result.obj.name !== searchedText) {
+					filtered.push(result.obj)
+				}
+
+				return filtered;
+			}, []);
+		} else {
+			return products;
+		}
+
+	}
+
 	useEffect(() => {
-		listProducts().then(prods => setProducts(prods));
+		listProducts().then(setProducts);
 	}, []);
 
 	useEffect(() => {
@@ -46,25 +77,29 @@ function App({ history }) {
 		};
 	}, [isTopBarActive]);
 
-	const dropdownClass = isTopBarActive ? 'active' : '';
 	return (
-
 		<div className="App">
-			<TopBar inputValue={topBarInputValue}
+			<TopBar value={topBarInputValue}
 				isActive={isTopBarActive}
 				onChange={e => setTopBarInputValue(e.target.value)}
-				activate={activate}
+				onClick={activate}
+				aria-controls="typeahead-results"
 				goBack={() => history.goBack()} />
 
 			<ProductList products={products} onChange={updateProduct} />
 
-			<div className={`App__dropdown p-sides-10px white ${dropdownClass}`}>
-				<ul className="list reset-list">
-					<li className="list__item">ADD</li>
-					<li className="list__item">Autocomplete</li>
-					<li className="list__item">Histórico</li>
-				</ul>
-			</div>
+			<TypeaheadDropdown active={isTopBarActive}>
+				<TypeaheadOption key={0} hidden={!topBarInputValue.length}>
+					<div className="capitalize">{topBarInputValue}</div>
+					<span className="secondary-black-text small-text">Adicionar</span>
+				</TypeaheadOption>
+
+				{isTopBarActive && filterProducts(topBarInputValue)
+					.map(({ id, name }) =>
+						<TypeaheadOption key={id} children={name} />
+					)}
+			</TypeaheadDropdown>
+
 
 			{/* <BottomBar /> */}
 		</div>
@@ -91,11 +126,9 @@ function fetchProducts(data, product) {
 }
 
 const addProduct = partial(fetchProducts, { method: 'POST' });
-
 const updateProduct = partial(fetchProducts, { method: 'PATCH' });
-
-
 const listProducts = () => fetch('/products').then(response => response.json());
+// const searchProducts = name => fetch('/products/q=${name}').then(response => response.json());
 const getProduct = id => fetch(`/products/${id}`).then(response => response.json());
 const removeProduct = id => fetch(`/products/${id}`, { method: 'DELETE' }).then(response => response.json());
 
