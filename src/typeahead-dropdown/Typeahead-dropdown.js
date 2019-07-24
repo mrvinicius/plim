@@ -21,7 +21,7 @@ export function TypeaheadOption({ children, onSelect, onComplete, ...optionProps
             <button className="list__option-main-action left" onClick={onSelect}>
                 {children}
             </button>
-            <button className="list__right-icon" onClick={onComplete}
+            <button className="list__right-item" onClick={onComplete}
                 hidden={!onComplete}>
                 <img src={process.env.PUBLIC_URL + '/arrow-up-left.svg'}
                     alt="Complete" />
