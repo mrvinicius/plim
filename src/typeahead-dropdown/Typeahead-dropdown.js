@@ -1,17 +1,16 @@
 import React from 'react'
-// import ReactDOM from 'react-dom';
 
 import './Typeahead-dropdown.css';
 
-
-export default function TypeaheadDropdown({ children, active }) {
-    const className = active ? 'active' : '';
+export default function TypeaheadDropdown({ children, isOpen }) {
+    const className =
+        `Typeahead-dropdown list side-gaps-pad reset-list white ${isOpen ? 'open' : ''}`;
 
     return (
-        <ul className={`Typeahead-dropdown list reset-list p-sides-10px white ${className}`}
-            role="listbox"
-            id="typeahead-results">
-            {children}
+        <ul id="typeheadDropdown"
+            className={className}
+            role="listbox">
+            {isOpen && children}
         </ul>
     )
 }

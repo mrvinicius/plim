@@ -1,14 +1,22 @@
-import React from 'react'
+import React from 'react';
+// import { createPortal } from 'react-dom';
 
 import './Bottom-bar.css';
+// import { usePortal } from '../shared';
 
-export default function BottomBar() {
+export default function BottomBar(props) {
+	// const target = usePortal('bottomBarWrapper');
+
+	// return createPortal(
+	// 	props.children,
+	// 	target
+	// );
+
 	return (
-		<div className="Bottom-bar white p-sides-10px" role="toolbar">
-			<button className="btn black-light">
-				<img src={process.env.PUBLIC_URL + '/play-circle.svg'} className="btn__icon" alt="" />
-				Iniciar compra
-			</button>
+		<div id="bottomBarWrapper"
+			role="toolbar"
+			className="Bottom-bar white side-gaps-pad">
+			{props.children}
 		</div>
 	)
 }

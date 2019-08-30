@@ -12,6 +12,7 @@
 
 .Number-spinner__input {
     min-width: 1.8em;
+    background-color: transparent;
 }
 
 .Number-spinner__input::-webkit-outer-spin-button,

@@ -1,13 +1,16 @@
 .Top-bar {
     height: 80px;
+    height: var(--top-bar-height);
 }
 
 .Top-bar__fixed-container {
     position: static;
     z-index: 20;
     display: flex;
+    padding-left: var(--side-gaps-width);
     width: 100%;
     height: inherit;
+    justify-content: flex-end;
     background-color: rgba(0, 0, 0, 0.05);
     background-color: #f2f2f2;
     transition: height 150ms ease-out;

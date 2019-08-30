@@ -1,7 +1,6 @@
 import React from 'react';
 
-import Modal from '../../modal';
-import NumberSpinner from '../../number-spinner';
+import { Modal, NumberSpinner } from '../../shared';
 
 const QuantityDialog = ({ quantity, onChange, onConfirm, onCancel, ...modalProps }) => {
 

@@ -1,3 +1,8 @@
+:root {
+    --side-gaps-width: 10px;
+    --top-bar-height: 80px;
+}
+
 .white {
     background-color: #fff;
 }
@@ -10,8 +15,10 @@
     text-align: left;
 }
 
-.p-sides-10px {
+/* .side-gaps-pad { */
+.side-gaps-pad {
     padding: 0 10px;
+    padding: 0 var(--side-gaps-width);
 }
 
 .w100pct {
@@ -66,8 +73,6 @@ button i {
     flex-grow: 1;
 }
 
-/* .list__item .list__right-item {} */
-
 .big-input {
     font-size: 1.1em;
 }
@@ -86,4 +91,9 @@ button i {
 
 .App {
     padding-bottom: 56px;
+}
+
+.Top-bar .btn-icon,
+.Nav-bar .btn-icon {
+    padding: 0 var(--side-gaps-width);
 }

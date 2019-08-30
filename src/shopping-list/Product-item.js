@@ -1,7 +1,7 @@
 import React from 'react'
 
 import './Product-item.css';
-import NumberSpinner from '../number-spinner';
+import { NumberSpinner } from '../shared';
 
 export default function ProductItem({ name, onChange, quantity = 0 }) {
     return (

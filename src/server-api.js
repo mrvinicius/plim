@@ -1,4 +1,4 @@
-import { partial } from './utils';
+import { partial } from './shared/utils';
 
 function fetchProducts(data, product) {
     const URI = `/products${product && product.id ? `/${product.id}` : '/'}`;

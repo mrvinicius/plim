@@ -1,34 +1,48 @@
-import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router } from "react-router-dom";
+import React, { useState } from 'react';
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import './App.css';
-// import BottomBar from './bottom-bar/Bottom-bar';
-import ProductList from './shopping-list/Product-list';
-import TopBarContainer from './top-bar/Top-bar-container';
-import { normalizeText } from './utils';
-import { listProducts, updateProduct } from './server-api';
+import NavBar from './nav-bar';
+import BottomBar from './bottom-bar/Bottom-bar';
+import ShoppingList from './shopping-list/Shopping-list';
+import PurchaseHistory from './purchase-history/Purchase-history';
+
+export const AppContext = React.createContext()
 
 function App() {
-	const [products, setProducts] = useState([]);
-
-	useEffect(() => {
-		listProducts().then(prods => setProducts(
-			prods.map(p => ({ ...p, searchableName: normalizeText(p.name) }))
-		));
-	}, []);
+	const [isNavOpen, setIsNavOpen] = useState(false);
 
 	return (
-		<div className="App">
+		<div id="app" className="App">
 			<Router>
-				<TopBarContainer products={products} />
+				<NavBar isOpen={isNavOpen} close={() => setIsNavOpen(false)} />
+
+				<main>
+					<AppContext.Provider value={() => setIsNavOpen(true)}>
+						<Route exact path="/" component={ShoppingList} />
+						<Route path="/history" component={PurchaseHistory} />
+					</AppContext.Provider>
+				</main>
+
+				<BottomBar>
+					<Switch>
+						<Route exact path="/" render={() =>
+							<button className="btn black-light">
+								<img src={process.env.PUBLIC_URL + '/play-circle.svg'} className="btn__icon" alt="" />
+								Iniciar compra
+							</button>
+						} />
+					</Switch>
+				</BottomBar>
 			</Router>
+			{/* 
+			<div id="bottomBarWrapper"
+				role="toolbar"
+				className="Bottom-bar white side-gaps-pad" /> */}
 
-			<ProductList products={products} onChange={updateProduct} />
-
-			{/* <BottomBar /> */}
 		</div>
-
 	);
 }
+
 
 export default App;

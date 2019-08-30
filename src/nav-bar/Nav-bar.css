@@ -1,0 +1,49 @@
+.Nav-bar {
+    position: fixed;
+    top: 0;
+    display: flex;
+    width: 70vw;
+    height: 100vh;
+    z-index: 10;
+    flex-direction: column;
+    transform: translateX(100vw);
+    transition: transform 200ms ease-out;
+}
+
+.Nav-bar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: block;
+    height: 100%;
+    width: 100vw;
+    transform: translateX(100vw);
+    z-index: 9;
+    opacity: 0;
+    transition: opacity 200ms ease-out;
+}
+
+.Nav-bar--open+.Nav-bar-overlay {
+    opacity: 0.6;
+    transform: translateX(0vw);
+    background-color: #000;
+}
+
+.Nav-bar--open {
+    /* height: 70px; */
+    transform: translateX(30vw);
+
+}
+
+.Nav-bar .btn-icon {
+    align-self: flex-end;
+    height: var(--top-bar-height);
+}
+
+.Nav-bar__links {
+    padding: 0 1rem;
+}
+
+.Nav-bar__links>* {
+    line-height: 2;
+}
