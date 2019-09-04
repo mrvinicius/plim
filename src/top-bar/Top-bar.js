@@ -1,21 +1,19 @@
-import React, { useState, useEffect, useCallback, useContext } from 'react';
+import React, { useEffect, useCallback, useContext } from 'react';
 import { withRouter } from 'react-router-dom';
 
 import './Top-bar.css';
 import { AppContext } from '../App';
 
-function TopBar({ value, onValueChange, onToggle, history }) {
-    const [isTopBarActive, setIsTopBarActive] = useState(false);
-    const [placeholderText, className] = isTopBarActive
+function TopBar({ isActive, value, onValueChange, onToggle, history }) {
+    const [placeholderText, className] = isActive
         ? ['Produto', 'active']
         : ['Toque para adicionar', ''];
     const openNavBar = useContext(AppContext);
 
     function activate() {
-        if (isTopBarActive)
+        if (isActive)
             return;
 
-        setIsTopBarActive(true);
         onToggle(true);
 
         if (history.location.state
@@ -30,21 +28,20 @@ function TopBar({ value, onValueChange, onToggle, history }) {
     }
 
     const memoInactivate = useCallback(() => {
-        setIsTopBarActive(false);
         onToggle(false);
     }, [onToggle])
 
     useEffect(() => {
-        if (isTopBarActive) {
+        if (isActive) {
             window.addEventListener('popstate', memoInactivate);
         }
 
         return () => {
-            if (isTopBarActive) {
+            if (isActive) {
                 window.removeEventListener('popstate', memoInactivate);
             }
         };
-    }, [isTopBarActive, memoInactivate]);
+    }, [isActive, memoInactivate]);
 
     return (
         <div className={`Top-bar ${className}`}>

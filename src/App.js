@@ -17,12 +17,10 @@ function App() {
 			<Router>
 				<NavBar isOpen={isNavOpen} close={() => setIsNavOpen(false)} />
 
-				<main>
-					<AppContext.Provider value={() => setIsNavOpen(true)}>
-						<Route exact path="/" component={ShoppingList} />
-						<Route path="/history" component={PurchaseHistory} />
-					</AppContext.Provider>
-				</main>
+				<AppContext.Provider value={() => setIsNavOpen(true)}>
+					<Route exact path="/" component={ShoppingList} />
+					<Route path="/history" component={PurchaseHistory} />
+				</AppContext.Provider>
 
 				<BottomBar>
 					<Switch>

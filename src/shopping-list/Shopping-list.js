@@ -70,15 +70,15 @@ export default function ShoppingList(props) {
     }
 
     function update(productData) {
-        const changedProductIndex = products.findIndex(prod => prod.id === productData.id)
-        const productsCopy = [...products]
-        productsCopy[changedProductIndex] = {
-            ...productsCopy[changedProductIndex],
+        const changedProduct = {
+            ...products.find(prod => prod.id === productData.id),
             ...productData
         }
 
-
-        setProducts(productsCopy);
+        setProducts([
+            changedProduct,
+            ...products.filter(prod => prod.id !== productData.id)
+        ])
 
         try {
             updateProduct(productData)
@@ -95,21 +95,21 @@ export default function ShoppingList(props) {
 
     return (
         <>
-            <TopBar value={topBarInputValue}
+            <TopBar isActive={isTopBarActive}
+                value={topBarInputValue}
                 onValueChange={handleProductAdditionNameChange}
-                // onNavIconClick={() => setIsNavOpen(true)}
-                onToggle={(isOpen) => {
-                    setIsTopBarActive(isOpen);
-                    if (!isOpen)
+                onToggle={(isActive) => {
+                    setIsTopBarActive(isActive);
+                    if (!isActive)
                         setTopBarInputValue('');
                 }} />
 
-            <section className="side-gaps-pad">
+            <main className="side-gaps-pad">
                 {products.map(({ id, ...product }) =>
                     <ProductItem key={id} {...product}
                         onChange={updatedProps => update({ id, ...updatedProps })} />
                 )}
-            </section>
+            </main>
 
             <TypeaheadDropdown isOpen={isTopBarActive}>
                 <TypeaheadOption key={0} hidden={!topBarInputValue.length || productAlreadyAdded}
