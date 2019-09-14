@@ -22,7 +22,7 @@ function App() {
 					<Route path="/history" component={PurchaseHistory} />
 				</AppContext.Provider>
 
-				<BottomBar>
+				{/* <BottomBar>
 					<Switch>
 						<Route exact path="/" render={() =>
 							<button className="btn black-light">
@@ -31,7 +31,7 @@ function App() {
 							</button>
 						} />
 					</Switch>
-				</BottomBar>
+				</BottomBar> */}
 			</Router>
 			{/* 
 			<div id="bottomBarWrapper"

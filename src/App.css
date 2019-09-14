@@ -15,10 +15,11 @@
     text-align: left;
 }
 
-/* .side-gaps-pad { */
 .side-gaps-pad {
-    padding: 0 10px;
-    padding: 0 var(--side-gaps-width);
+    padding-right: 10px;
+    padding-left: 10px;
+    padding-right: var(--side-gaps-width, 10px);
+    padding-left: var(--side-gaps-width, 10px);
 }
 
 .w100pct {
@@ -96,4 +97,19 @@ button i {
 .Top-bar .btn-icon,
 .Nav-bar .btn-icon {
     padding: 0 var(--side-gaps-width);
+}
+
+.list-item {
+    position: relative;
+
+}
+
+.list-item__underlay-action {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 100px;
+    -webkit-appearance: none;
+    font-weight: 600;
 }

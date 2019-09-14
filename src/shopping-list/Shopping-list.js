@@ -6,26 +6,31 @@ import ProductItem from './Product-item';
 import TypeaheadDropdown, { TypeaheadOption } from '../typeahead-dropdown';
 import QuantityDialog from './quantity-dialog';
 import { normalizeText } from '../shared/utils';
-import { listProducts, addProduct, updateProduct } from '../server-api';
+import { listProducts, addProduct, updateProduct, removeProduct } from '../server-api';
 
 export default function ShoppingList(props) {
-    const [products, setProducts] = useState([]);
-
-    const [filterProductsResult, setFilterProductsResult] = useState([]),
+    const [products, setProducts] = useState([]),
+        [filterProductsResult, setFilterProductsResult] = useState([]),
         [productAlreadyAdded, setProductAlreadyAdded] = useState(false),
         [isQuantityDialogOpen, setIsQuantityDialogOpen] = useState(false),
         [quantityDialogCallback, setQuantityDialogCallback] = useState(),
-        [quantityDialogValue, setQuantityDialogValue] = useState(0);
-    const [topBarInputValue, setTopBarInputValue] = useState('');
-    const [isTopBarActive, setIsTopBarActive] = useState(false);
+        [quantityDialogValue, setQuantityDialogValue] = useState(0),
+        [topBarInputValue, setTopBarInputValue] = useState(''),
+        [isTopBarActive, setIsTopBarActive] = useState(false);
 
     function handleNewProductRequest({ id, name, quantity }) {
         setQuantityDialogCallback(() => {
             return dialogQuantity => {
                 // choose action depending on product existence
                 id
-                    ? update({ id, quantity: dialogQuantity })
-                    : add({ name, quantity: dialogQuantity });
+                    ? update({
+                        id,
+                        quantity: dialogQuantity
+                    }, true)
+                    : add({
+                        name,
+                        quantity: dialogQuantity
+                    });
 
                 setIsTopBarActive(false);
                 setIsQuantityDialogOpen(false);
@@ -69,22 +74,35 @@ export default function ShoppingList(props) {
         setProducts(newProductList);
     }
 
-    function update(productData) {
+    function update(productData, shouldAppearAtStart = false) {
         const changedProduct = {
             ...products.find(prod => prod.id === productData.id),
             ...productData
         }
 
-        setProducts([
-            changedProduct,
-            ...products.filter(prod => prod.id !== productData.id)
-        ])
+        if (shouldAppearAtStart) {
+            setProducts([
+                changedProduct,
+                ...products.filter(prod => prod.id !== productData.id)
+            ])
+        } else {
+            const productsCopy = [...products],
+                changedProductIndex = productsCopy
+                    .findIndex(prod => prod.id === productData.id);
+
+            productsCopy[changedProductIndex] = changedProduct
+            setProducts(productsCopy)
+        }
 
         try {
             updateProduct(productData)
         } catch (error) {
             console.error(error);
         }
+    }
+
+    function remove(id) {
+        // removeProduct(id)
     }
 
     useEffect(() => {
@@ -104,10 +122,11 @@ export default function ShoppingList(props) {
                         setTopBarInputValue('');
                 }} />
 
-            <main className="side-gaps-pad">
+            <main>
                 {products.map(({ id, ...product }) =>
                     <ProductItem key={id} {...product}
-                        onChange={updatedProps => update({ id, ...updatedProps })} />
+                        onChange={updatedProps => update({ id, ...updatedProps })}
+                        onRemove={() => remove(id)} />
                 )}
             </main>
 
