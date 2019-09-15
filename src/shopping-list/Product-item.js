@@ -1,17 +1,50 @@
-import React, { useState } from 'react'
+import React, { useEffect, useCallback, useState } from 'react'
 import { useSwipeable } from 'react-swipeable'
 
 import './Product-item.css'
 import { NumberSpinner } from '../shared'
 
 export default function ProductItem({ name, onChange, onRemove, quantity = 0 }) {
-    const handlers = useSwipeable({
-        onSwiping: drag,
-        onSwiped: checkIfSwipeWasSubstantial
-    })
+    let productItemRef = null;
 
-    const [translated, setTranslated] = useState(0)
-    const [lastDeltaX, setLastDeltaX] = useState(0)
+    const [translated, setTranslated] = useState(0),
+        [lastDeltaX, setLastDeltaX] = useState(0),
+        swipeHandlers = useSwipeable({
+            onSwiping: function (eventData) {
+                drag(eventData);
+
+                if (!productItemRef) {
+                    productItemRef = eventData.event.currentTarget;
+                }
+
+            },
+            onSwiped: checkIfSwipeWasSubstantial
+        });
+
+
+    const dismissDragOnOutsideClickMemo = useCallback(
+        (event) => {
+            const wasClickInside = productItemRef.contains(event.target),
+                deleteButtonElement = productItemRef.nextElementSibling,
+                wasClickOnDeleteButton = deleteButtonElement.contains(event.target);
+
+            if (!wasClickInside) {
+                document.removeEventListener('touchstart', dismissDragOnOutsideClickMemo)
+
+                if (!wasClickOnDeleteButton) {
+                    setTranslated(0)
+                }
+            }
+        },
+        [productItemRef],
+    );
+
+    useEffect(() => {
+        return () => {
+            document.removeEventListener('touchstart', dismissDragOnOutsideClickMemo);
+        };
+    }, [dismissDragOnOutsideClickMemo]);
+
 
     function drag({ deltaX, absX, absY }) {
         if (absX < absY) return
@@ -32,8 +65,8 @@ export default function ProductItem({ name, onChange, onRemove, quantity = 0 }) 
 
     function dragLeft(lastDeltaX, deltaX) {
         if (translated > -100) {
-            const swipedToLeft = deltaX - lastDeltaX
-            const draggedToLeft = Math.abs(translated) + swipedToLeft
+            const swipedToLeft = deltaX - lastDeltaX,
+                draggedToLeft = Math.abs(translated) + swipedToLeft;
 
             setTranslated(-draggedToLeft > -100 ? -draggedToLeft : -100)
         }
@@ -41,50 +74,35 @@ export default function ProductItem({ name, onChange, onRemove, quantity = 0 }) 
 
     function dragRight(lastDeltaX, absX) {
         if (translated < 0) {
-            const swipedToRight = Math.abs(absX - Math.abs(lastDeltaX))
-            const draggedToRight = translated + swipedToRight
+            const swipedToRight = Math.abs(absX - Math.abs(lastDeltaX)),
+                draggedToRight = translated + swipedToRight;
 
             setTranslated(draggedToRight < 0 ? draggedToRight : 0)
         }
     }
 
     function checkIfSwipeWasSubstantial(eventData) {
-        const element = eventData.event.currentTarget,
-            underlayButton = element.nextElementSibling;
-
         if (translated > -50) {
             setTranslated(0)
             console.log('removed');
-            document.removeEventListener('touchstart', handleOutsideClick)
+            document.removeEventListener('touchstart', dismissDragOnOutsideClickMemo)
         } else {
             setTranslated(-100)
-            document.addEventListener('touchstart', handleOutsideClick)
+            console.log('added');
+            document.addEventListener('touchstart', dismissDragOnOutsideClickMemo)
+        }
+
+        if (!productItemRef) {
+            productItemRef = eventData.event.currentTarget;
         }
 
         setLastDeltaX(0)
-
-        function handleOutsideClick(event) {
-            const wasClickInside = element.contains(event.target),
-                wasClickOnUnderlayButton = underlayButton
-                    .contains(event.target);
-            // console.log('handler called');
-
-
-            if (!wasClickInside) {
-                console.log('removed in handler');
-                document.removeEventListener('touchstart', handleOutsideClick)
-
-                if (!wasClickOnUnderlayButton) {
-                    setTranslated(0)
-                }
-            }
-        }
     }
 
     return (
         <div className="Product-item-wrapper list-item">
             <div className="Product-item side-gaps-pad"
-                {...handlers}
+                {...swipeHandlers}
                 style={{ transform: `translateX(${translated}px)` }} >
                 <input type="text"
                     className="Product-item__name no-outline"
