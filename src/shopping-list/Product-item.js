@@ -1,22 +1,22 @@
-import React, { useEffect, useCallback, useState } from 'react'
+import React, { useRef, useEffect, useCallback, useState } from 'react'
 import { useSwipeable } from 'react-swipeable'
 
 import './Product-item.css'
 import { NumberSpinner } from '../shared'
 
 export default function ProductItem({ name, onChange, onRemove, quantity = 0 }) {
-    let productItemRef = null;
+    let productItemRef = null,
+        _translated = useRef(0),
+        lastDeltaX = 0;
 
-    const [translated, setTranslated] = useState(0),
-        [lastDeltaX, setLastDeltaX] = useState(0),
-        [isTransitionOn, setIsTransitionOn] = useState(false),
+    const [isTransitionOn, setIsTransitionOn] = useState(false),
         swipeHandlers = useSwipeable({
             onSwiping: function (eventData) {
-                drag(eventData);
-
                 if (!productItemRef) {
                     productItemRef = eventData.event.currentTarget;
                 }
+
+                drag(eventData);
             },
             onSwiped: checkIfSwipeWasSubstantial
         });
@@ -32,14 +32,15 @@ export default function ProductItem({ name, onChange, onRemove, quantity = 0 }) 
                 document.removeEventListener('touchstart', dismissDragOnOutsideClick)
 
                 if (!wasClickOnDeleteButton) {
-                    setTranslated(0)
+                    _translated.current = 0
+                    productItemRef.style.transform = `translateX(${0}px)`
                     setTimeout(() => {
                         setIsTransitionOn(false)
                     });
                 }
             }
         },
-        [productItemRef],
+        [productItemRef]
     );
 
     useEffect(() => {
@@ -52,33 +53,35 @@ export default function ProductItem({ name, onChange, onRemove, quantity = 0 }) 
     function drag({ deltaX, absX, absY }) {
         if (absX < absY) return
 
-        /* Started draggin left */
+        /* Started draggint left */
         if (deltaX > 0) {
             deltaX > lastDeltaX
                 ? dragLeft(lastDeltaX, deltaX) // Drag left
                 : dragRight(lastDeltaX, absX) // Changed direction: Drag right
-        } else { /* Started draggin right */
+        } else { /* Started draggint right */
             deltaX < lastDeltaX
                 ? dragRight(lastDeltaX, absX) // Drag right
                 : dragLeft(lastDeltaX, deltaX) // Changed direction: Drag left
         }
 
-        setLastDeltaX(deltaX)
+        lastDeltaX = deltaX
+        console.log(lastDeltaX);
+        
     }
 
     function dragLeft(lastDeltaX, deltaX) {
-        if (translated > -100) {
+        if (getTranslated() > -100) {
             const swipedToLeft = deltaX - lastDeltaX,
-                draggedToLeft = Math.abs(translated) + swipedToLeft;
+                draggedToLeft = Math.abs(getTranslated()) + swipedToLeft;
 
             setTranslated(-draggedToLeft > -100 ? -draggedToLeft : -100)
         }
     }
 
     function dragRight(lastDeltaX, absX) {
-        if (translated < 0) {
+        if (getTranslated() < 0) {
             const swipedToRight = Math.abs(absX - Math.abs(lastDeltaX)),
-                draggedToRight = translated + swipedToRight;
+                draggedToRight = getTranslated() + swipedToRight;
 
             setTranslated(draggedToRight < 0 ? draggedToRight : 0)
         }
@@ -87,7 +90,7 @@ export default function ProductItem({ name, onChange, onRemove, quantity = 0 }) 
     function checkIfSwipeWasSubstantial(eventData) {
         setIsTransitionOn(true)
 
-        if (translated > -50) {
+        if (getTranslated() > -50) {
             setTranslated(0)
             document.removeEventListener('touchstart', dismissDragOnOutsideClick)
         } else {
@@ -99,20 +102,25 @@ export default function ProductItem({ name, onChange, onRemove, quantity = 0 }) 
             productItemRef = eventData.event.currentTarget;
         }
 
-        setLastDeltaX(0)
+        lastDeltaX = 0
     }
 
-    function turnOffTransition() {
+    function getTranslated() {
+        return _translated.current
     }
 
-    return (
+    function setTranslated(translated) {
+        _translated.current = translated
+        productItemRef.style.transform = `translateX(${translated}px)`
+    }
+
+    return (console.log('mounted'),
         <div className="Product-item-wrapper list-item">
-            <div className="Product-item side-gaps-pad"
-                {...swipeHandlers}
-                onTransitionEnd={turnOffTransition}
+            <div {...swipeHandlers}
+                className="Product-item side-gaps-pad"
                 style={{
                     transition: isTransitionOn ? 'transform 70ms linear' : null,
-                    transform: `translateX(${translated}px)`
+                    transform: `translateX(${getTranslated()}px)`
                 }} >
                 <input type="text"
                     className="Product-item__name no-outline"
