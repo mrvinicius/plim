@@ -9,6 +9,7 @@ export default function ProductItem({ name, onChange, onRemove, quantity = 0 }) 
 
     const [translated, setTranslated] = useState(0),
         [lastDeltaX, setLastDeltaX] = useState(0),
+        [isTransitionOn, setIsTransitionOn] = useState(false),
         swipeHandlers = useSwipeable({
             onSwiping: function (eventData) {
                 drag(eventData);
@@ -16,23 +17,25 @@ export default function ProductItem({ name, onChange, onRemove, quantity = 0 }) 
                 if (!productItemRef) {
                     productItemRef = eventData.event.currentTarget;
                 }
-
             },
             onSwiped: checkIfSwipeWasSubstantial
         });
 
 
-    const dismissDragOnOutsideClickMemo = useCallback(
+    const dismissDragOnOutsideClick = useCallback(
         (event) => {
             const wasClickInside = productItemRef.contains(event.target),
                 deleteButtonElement = productItemRef.nextElementSibling,
                 wasClickOnDeleteButton = deleteButtonElement.contains(event.target);
 
             if (!wasClickInside) {
-                document.removeEventListener('touchstart', dismissDragOnOutsideClickMemo)
+                document.removeEventListener('touchstart', dismissDragOnOutsideClick)
 
                 if (!wasClickOnDeleteButton) {
                     setTranslated(0)
+                    setTimeout(() => {
+                        setIsTransitionOn(false)
+                    });
                 }
             }
         },
@@ -41,9 +44,9 @@ export default function ProductItem({ name, onChange, onRemove, quantity = 0 }) 
 
     useEffect(() => {
         return () => {
-            document.removeEventListener('touchstart', dismissDragOnOutsideClickMemo);
+            document.removeEventListener('touchstart', dismissDragOnOutsideClick);
         };
-    }, [dismissDragOnOutsideClickMemo]);
+    }, [dismissDragOnOutsideClick]);
 
 
     function drag({ deltaX, absX, absY }) {
@@ -82,14 +85,14 @@ export default function ProductItem({ name, onChange, onRemove, quantity = 0 }) 
     }
 
     function checkIfSwipeWasSubstantial(eventData) {
+        setIsTransitionOn(true)
+
         if (translated > -50) {
             setTranslated(0)
-            console.log('removed');
-            document.removeEventListener('touchstart', dismissDragOnOutsideClickMemo)
+            document.removeEventListener('touchstart', dismissDragOnOutsideClick)
         } else {
             setTranslated(-100)
-            console.log('added');
-            document.addEventListener('touchstart', dismissDragOnOutsideClickMemo)
+            document.addEventListener('touchstart', dismissDragOnOutsideClick)
         }
 
         if (!productItemRef) {
@@ -99,11 +102,18 @@ export default function ProductItem({ name, onChange, onRemove, quantity = 0 }) 
         setLastDeltaX(0)
     }
 
+    function turnOffTransition() {
+    }
+
     return (
         <div className="Product-item-wrapper list-item">
             <div className="Product-item side-gaps-pad"
                 {...swipeHandlers}
-                style={{ transform: `translateX(${translated}px)` }} >
+                onTransitionEnd={turnOffTransition}
+                style={{
+                    transition: isTransitionOn ? 'transform 70ms linear' : null,
+                    transform: `translateX(${translated}px)`
+                }} >
                 <input type="text"
                     className="Product-item__name no-outline"
                     value={name}
