@@ -25,16 +25,13 @@ export default function ProductItem({ name, onChange, onRemove, quantity = 0 }) 
                 document.removeEventListener('touchstart', dismissDragOnOutsideClick)
 
                 if (!wasClickOnDeleteButton) {
-                    // _translated.current = 0
-
                     productItemRef.addEventListener('transitionend', ({ propertyName }) => {
                         if (propertyName === 'transform') {
                             setIsTransitionOn(false)
                         }
                     }, { once: true })
 
-                    setTranslated(productItemRef, 0)
-                    // productItemRef.style.transform = `translateX(${0}px)`;
+                    setTranslated(0)
                 }
             }
         }, [containerElementRef]);
@@ -45,56 +42,49 @@ export default function ProductItem({ name, onChange, onRemove, quantity = 0 }) 
         };
     }, [dismissDragOnOutsideClick]);
 
-    function drag({ event: { currentTarget }, deltaX, absX, absY }) {
+    function drag({ deltaX, absX, absY }) {
         if (absX < absY) return
 
         /* Started draggint left */
         if (deltaX > 0) {
             deltaX > lastDeltaX
-                ? dragLeft(currentTarget, lastDeltaX, deltaX) // Drag left
-                : dragRight(currentTarget, lastDeltaX, absX) // Changed direction: Drag right
+                ? dragLeft(lastDeltaX, deltaX) // Drag left
+                : dragRight(lastDeltaX, absX) // Changed direction: Drag right
         } else { /* Started draggint right */
             deltaX < lastDeltaX
-                ? dragRight(currentTarget, lastDeltaX, absX) // Drag right
-                : dragLeft(currentTarget, lastDeltaX, deltaX) // Changed direction: Drag left
+                ? dragRight(lastDeltaX, absX) // Drag right
+                : dragLeft(lastDeltaX, deltaX) // Changed direction: Drag left
         }
 
         lastDeltaX = deltaX
     }
 
-    function dragLeft(element, lastDeltaX, deltaX) {
+    function dragLeft(lastDeltaX, deltaX) {
         if (getTranslated() > -100) {
             const swipedToLeft = deltaX - lastDeltaX,
                 draggedToLeft = Math.abs(getTranslated()) + swipedToLeft;
 
-            setTranslated(
-                element,
-                -draggedToLeft > -100 ? -draggedToLeft : -100
-            );
+            setTranslated(-draggedToLeft > -100 ? -draggedToLeft : -100);
         }
     }
 
-    function dragRight(element, lastDeltaX, absX) {
+    function dragRight(lastDeltaX, absX) {
         if (getTranslated() < 0) {
             const swipedToRight = Math.abs(absX - Math.abs(lastDeltaX)),
                 draggedToRight = getTranslated() + swipedToRight;
 
-            setTranslated(
-                element,
-                draggedToRight < 0 ? draggedToRight : 0
-            );
+            setTranslated(draggedToRight < 0 ? draggedToRight : 0);
         }
     }
 
-    function checkIfSwipeWasSubstantial({ event: { currentTarget } }) {
+    function checkIfSwipeWasSubstantial() {
         setIsTransitionOn(true)
 
         if (getTranslated() > -50) {
-            setTranslated(currentTarget, 0)
+            setTranslated(0)
             document.removeEventListener('touchstart', dismissDragOnOutsideClick)
         } else {
-            setTranslated(currentTarget, -100)
-
+            setTranslated(-100)
             document.addEventListener('touchstart', dismissDragOnOutsideClick)
         }
 
@@ -105,16 +95,18 @@ export default function ProductItem({ name, onChange, onRemove, quantity = 0 }) 
         return _translated.current
     }
 
-    function setTranslated(element, translated) {
+    function setTranslated(translated) {
+        const productItemRef = containerElementRef.current.firstElementChild;
+
         _translated.current = translated
-        element.style.transform = `translateX(${translated}px)`
+        productItemRef.style.transform = `translateX(${translated}px)`
     }
 
-    function setRef(element) {
-        containerElementRef.current = element
+    function setRef(containerElement) {
+        containerElementRef.current = containerElement
     }
 
-    return (console.log('mounted'),
+    return (
         <div ref={setRef} className="Product-item-wrapper list-item">
             <div {...swipeHandlers}
                 className="Product-item side-gaps-pad"
