@@ -5,8 +5,14 @@ import TopBar from '../top-bar';
 import ProductItem from './Product-item';
 import TypeaheadDropdown, { TypeaheadOption } from '../typeahead-dropdown';
 import QuantityDialog from './quantity-dialog';
+import Toast from '../shared/toast';
 import { normalizeText } from '../shared/utils';
-import { listProducts, addProduct, updateProduct, removeProduct } from '../server-api';
+import {
+    listProducts,
+    addProduct,
+    updateProduct,
+    removeProduct
+} from '../server-api';
 
 export default function ShoppingList(props) {
     const [products, setProducts] = useState([]),
@@ -158,6 +164,10 @@ export default function ShoppingList(props) {
                 quantity={quantityDialogValue}
                 onChange={setQuantityDialogValue}
                 onConfirm={() => quantityDialogCallback(quantityDialogValue)} />
+
+            <Toast undo={() => {}}>
+                Produto removido
+            </Toast>
         </>
     )
 }

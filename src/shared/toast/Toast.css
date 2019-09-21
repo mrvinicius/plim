@@ -1,0 +1,28 @@
+.Toast {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 9;
+
+    display: flex;
+    padding: 15px 20px;
+    width: 100%;
+    height: 56px;
+    justify-content: space-between;
+    align-items: center;
+
+    font-size: 1.1rem;
+    color: #fff;
+    background-color: hsla(0, 0%, 10%, 0.99);
+}
+
+.Toast .undo {
+    color: hsl(197, 71%, 73%);
+}
+.Toast .undo img {
+    margin-right: 0.5em;
+}
+.Toast .undo span {
+    vertical-align: middle;
+}
