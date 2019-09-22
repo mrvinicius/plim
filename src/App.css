@@ -55,6 +55,10 @@ button i {
     font-weight: bold;
 }
 
+.btn-flat {
+	font-weight: 600;
+}
+
 .btn__icon {
     margin-right: 0.5em;
 }

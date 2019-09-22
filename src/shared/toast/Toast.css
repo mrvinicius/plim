@@ -12,17 +12,29 @@
     justify-content: space-between;
     align-items: center;
 
+    opacity: 0;
+    transform: translateY(56px);
+    transition: opacity 200ms ease-out,
+        transform 200ms ease-out;
+
     font-size: 1.1rem;
     color: #fff;
     background-color: hsla(0, 0%, 10%, 0.99);
 }
 
-.Toast .undo {
+.Toast.is-shown {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.Toast .Toast__undo {
     color: hsl(197, 71%, 73%);
 }
-.Toast .undo img {
-    margin-right: 0.5em;
+
+.Toast .Toast__undo img {
+    margin-right: 0.7em;
 }
-.Toast .undo span {
+
+.Toast .Toast__undo span {
     vertical-align: middle;
 }

@@ -13,7 +13,7 @@ export default function NumberSpinner({ quantity = 0, min = 0, onChange, ...inpu
     return (
         <div className="Number-spinner">
             <button aria-label="Diminuir"
-                className="Number-spinner__button"
+                className="Number-spinner__button btn-flat"
                 onClick={() => update(quantity - 1)}>-</button>
             <input type="number"
                 className="Number-spinner__input big-input center"
@@ -23,7 +23,7 @@ export default function NumberSpinner({ quantity = 0, min = 0, onChange, ...inpu
                 onBlur={e => e.target.value = parseInt(e.target.value, 10)}
                 {...inputProps} />
             <button aria-label="Aumentar"
-                className="Number-spinner__button"
+                className="Number-spinner__button btn-flat"
                 onClick={() => update(quantity + 1)}>+</button>
         </div>
     )
