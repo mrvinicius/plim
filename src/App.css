@@ -3,6 +3,11 @@
     --top-bar-height: 80px;
 }
 
+input[type=number],
+.number-font {
+    font-family: 'Fira Code', monospace;
+}
+
 .white {
     background-color: #fff;
 }
