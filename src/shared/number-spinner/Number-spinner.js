@@ -2,10 +2,10 @@ import React from 'react';
 
 import './Number-spinner.css';
 
-export default function NumberSpinner({ quantity = 0, min = 0, onChange, ...inputProps }) {
+export default function NumberSpinner({ quantity = 0, min = 0, max = 99, onChange, ...inputProps }) {
 
     const update = newValue => {
-        if (newValue >= min) {
+        if (newValue >= min && newValue <= max) {
             onChange(newValue);
         }
     }
@@ -14,7 +14,6 @@ export default function NumberSpinner({ quantity = 0, min = 0, onChange, ...inpu
         <div className="Number-spinner">
             <input type="number"
                 className="Number-spinner__input right"
-                min={min}
                 value={quantity}
                 onChange={e => update(parseInt(e.target.value, 10))}
                 onBlur={e => e.target.value = parseInt(e.target.value, 10)}
