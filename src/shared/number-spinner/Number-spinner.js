@@ -12,11 +12,8 @@ export default function NumberSpinner({ quantity = 0, min = 0, onChange, ...inpu
 
     return (
         <div className="Number-spinner">
-            <button aria-label="Diminuir"
-                className="Number-spinner__button"
-                onClick={() => update(quantity - 1)}>-</button>
             <input type="number"
-                className="Number-spinner__input big-input center"
+                className="Number-spinner__input right"
                 min={min}
                 value={quantity}
                 onChange={e => update(parseInt(e.target.value, 10))}
@@ -24,7 +21,14 @@ export default function NumberSpinner({ quantity = 0, min = 0, onChange, ...inpu
                 {...inputProps} />
             <button aria-label="Aumentar"
                 className="Number-spinner__button"
-                onClick={() => update(quantity + 1)}>+</button>
+                onClick={() => update(quantity + 1)}>
+                <img className="invert-y" src={process.env.PUBLIC_URL + '/chevron-white.svg'} alt=""/>    
+            </button>
+            <button aria-label="Diminuir"
+                className="Number-spinner__button"
+                onClick={() => update(quantity - 1)}>
+                <img src={process.env.PUBLIC_URL + '/chevron-white.svg'} alt=""/>
+            </button>
         </div>
     )
 }

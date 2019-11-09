@@ -1,18 +1,50 @@
 .Number-spinner {
     display: flex;
-    border: 1px solid black;
-    height: 46px;
-}
-
-
-.Number-spinner__button {
-    flex-basis: 34px;
-    flex-shrink: 0;
+    height: 80px;
+    flex-wrap: wrap;
+    flex-direction: column;
 }
 
 .Number-spinner__input {
+    margin-right: 14px;
+    flex-basis: 100%;
     min-width: 1.8em;
+    width: calc(100% - 42px - 14px);
+    font-size: 42px;
+    font-weight: 300;
     background-color: transparent;
+}
+
+.Number-spinner__button {
+    flex-basis: 50%;
+    width: 42px;
+    background-color: var(--color-action);
+    box-shadow: var(--box-shadow-action);
+}
+
+.Number-spinner__button:focus {
+    outline: none;
+}
+
+.Number-spinner__button:not(:last-child) {
+    border-top-left-radius: 50%;
+    border-top-right-radius: 50%;
+}
+
+.Number-spinner__button:last-child {
+    border-bottom-left-radius: 50%;
+    border-bottom-right-radius: 50%;
+}
+
+.Number-spinner__button:last-child::before {
+    content: '';
+    position: relative;
+    display: block;
+    top: -0.5px;
+    margin: 0 auto;
+    width: 35%;
+    height: 1px;
+    background-color: rgba(255, 255, 255, 0.4);
 }
 
 .Number-spinner__input::-webkit-outer-spin-button,

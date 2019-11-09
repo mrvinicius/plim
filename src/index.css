@@ -3,11 +3,6 @@
 html {
 	box-sizing: border-box;
 	font-size: 16px;
-	font-family: Cabin, Arial, Helvetica, sans-serif;
-}
-
-input, textarea {
-	font-family: Cabin, Arial, Helvetica, sans-serif;
 }
 
 *,
@@ -16,11 +11,26 @@ input, textarea {
 	box-sizing: inherit;
 }
 
-
 body {
 	margin: 0;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
+}
+
+input, textarea {
+	background-color: transparent;
+}
+
+/* reset input */
+[type="text"],
+[type="number"] {
+	border: none;
+	padding: 0;
+	width: 100%;
+}
+
+input[list]::-webkit-calendar-picker-indicator {
+	display: none;
 }
 
 /* reset button */
@@ -29,18 +39,6 @@ button {
 	padding: 0;
 	background-color: transparent;
 	font-size: 1em;
-}
-
-/* reset input */
-input[type="text"],
-input[type="number"] {
-	border: none;
-	padding: 0;
-	width: 100%;
-}
-
-input[list]::-webkit-calendar-picker-indicator {
-	display: none;
 }
 
 /* reset list */

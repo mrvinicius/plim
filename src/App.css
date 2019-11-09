@@ -1,11 +1,26 @@
 :root {
-    --side-gaps-width: 10px;
+    --side-gaps-width: 15px;
     --top-bar-height: 80px;
+    --color-secondary: hsl(33, 96%, 71%);
+    --color-action: hsl(215, 26%, 28%);
+    --color-action-secondary: hsla(215, 26%, 28%, 78%);
+    --box-shadow-action: 0px 6px 15px rgba(0, 0, 0, 0.3);
+    --color-variable-text: hsl(264, 15%, 27%);
+}
+
+body {
+	font-family: Cabin, Arial, Helvetica, sans-serif;
+    background-color: var(--color-secondary);
+}
+
+input, textarea {
+    font-family: Cabin, Arial, Helvetica, sans-serif;
+    color: var(--color-variable-text);
 }
 
 input[type=number],
-.number-font {
-    font-family: 'Fira Code', monospace;
+.family-numeric {
+    font-family: 'Roboto Mono', monospace;
 }
 
 .white {
@@ -20,11 +35,15 @@ input[type=number],
     text-align: left;
 }
 
+.right {
+    text-align: right;
+}
+
 .side-gaps-pad {
-    padding-right: 10px;
-    padding-left: 10px;
-    padding-right: var(--side-gaps-width, 10px);
-    padding-left: var(--side-gaps-width, 10px);
+    padding-right: 15px;
+    padding-left: 15px;
+    padding-right: var(--side-gaps-width, 15px);
+    padding-left: var(--side-gaps-width, 15px);
 }
 
 .w100pct {
@@ -117,4 +136,8 @@ button i {
     width: 100px;
     -webkit-appearance: none;
     font-weight: 600;
+}
+
+.invert-y {
+    transform: rotate(180deg);
 }

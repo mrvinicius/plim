@@ -1,12 +1,12 @@
 /*=======================
-* Fire Code
+* Roboto Mono
 * ======================*/
 @font-face {
-  font-family: 'Fira Code';
+  font-family: 'Roboto Mono';
   font-style: normal;
-  font-weight: 400;
+  font-weight: 300;
   font-display: swap;
-  src: local('Fira Code'), local('Fira-Code'), local('FiraCode'), url(./fonts/Fira-Code-400.woff2) format('woff2');
+  src: local('Roboto Mono Light'), local('RobotoMono-Light'), url(./fonts/Roboto-Mono-300.woff2) format('woff2');
 }
 
 /*=======================

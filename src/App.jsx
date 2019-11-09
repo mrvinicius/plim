@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import {
+	BrowserRouter as Router,
+	Route,
+	// Switch
+} from "react-router-dom";
 
 import './App.css';
 import NavBar from './nav-bar';
-import BottomBar from './bottom-bar/Bottom-bar';
+// import BottomBar from './bottom-bar/Bottom-bar';
 import ShoppingList from './shopping-list/Shopping-list';
 import PurchaseHistory from './purchase-history/Purchase-history';
 

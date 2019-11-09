@@ -14,12 +14,13 @@
     align-items: center;
     user-select: none;
     transition: transform 70ms linear;
-    background-color: #fff;
+    background-color: var(--color-secondary);
 }
 
 .Product-item__name {
+    padding-right: 14px;
+    flex-basis: 60%;
     flex-shrink: 0;
-    flex-basis: 66%;
-    max-width: 66%;
+    max-width: 60%;
     font-size: 1.2em;
 }
