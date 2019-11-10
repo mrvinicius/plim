@@ -6,6 +6,7 @@
     --color-action-secondary: hsla(215, 26%, 28%, 78%);
     --box-shadow-action: 0px 6px 15px rgba(0, 0, 0, 0.3);
     --color-variable-text: hsl(264, 15%, 27%);
+    --drop-shadow-action-icon: drop-shadow(0 2px 1px rgba(0,0,0,0.25));
 }
 
 body {
@@ -118,9 +119,18 @@ button i {
     padding-bottom: 56px;
 }
 
+.btn-icon {
+    filter: var(--drop-shadow-action-icon);
+}
+
 .Top-bar .btn-icon,
 .Nav-bar .btn-icon {
     padding: 0 var(--side-gaps-width);
+}
+
+.Top-bar .btn-icon img,
+.Nav-bar .btn-icon img {
+    height: 30px;
 }
 
 .list-item {

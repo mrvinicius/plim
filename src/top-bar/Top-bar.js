@@ -16,14 +16,14 @@ function TopBar({ isActive, value, onValueChange, onToggle, history }) {
 
         onToggle(true);
 
-        if (history.location.state
-            && history.location.state.alreadyActivatedBefore) {
+        // if (history.location.state
+        //     && history.location.state.alreadyActivatedBefore) {
 
-            history.goForward();
-            return;
-        }
+        //     history.goForward();
+        //     return;
+        // }
 
-        history.replace('', { alreadyActivatedBefore: true })
+        // history.replace('', { alreadyActivatedBefore: true })
         history.push('');
     }
 
