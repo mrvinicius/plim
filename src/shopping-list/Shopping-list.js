@@ -1,12 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import fuzzysort from 'fuzzysort';
 
 import TopBar from '../top-bar';
 import ProductItem from './Product-item';
 import TypeaheadDropdown, { TypeaheadOption } from '../typeahead-dropdown';
 import QuantityDialog from './quantity-dialog';
+import Toast from '../shared/toast';
 import { normalizeText } from '../shared/utils';
-import { listProducts, addProduct, updateProduct, removeProduct } from '../server-api';
+import {
+    listProducts,
+    addProduct,
+    updateProduct,
+    removeProduct
+} from '../server-api';
 
 export default function ShoppingList(props) {
     const [products, setProducts] = useState([]),
@@ -16,7 +22,11 @@ export default function ShoppingList(props) {
         [quantityDialogCallback, setQuantityDialogCallback] = useState(),
         [quantityDialogValue, setQuantityDialogValue] = useState(0),
         [topBarInputValue, setTopBarInputValue] = useState(''),
-        [isTopBarActive, setIsTopBarActive] = useState(false);
+        [isTopBarActive, setIsTopBarActive] = useState(false),
+        [isToastShown, setIsToastShown] = useState(false),
+        [productToBeRemovedEntry, setProductToBeRemovedEntry] = useState([]),
+        remotionTimeout = useRef(NaN),
+        toastDismissionTimeout = useRef(NaN);
 
     function handleNewProductRequest({ id, name, quantity }) {
         setQuantityDialogCallback(() => {
@@ -102,7 +112,30 @@ export default function ShoppingList(props) {
     }
 
     function remove(id) {
-        // removeProduct(id)
+        const productPosition = products.findIndex(product => product.id === id),
+            { [productPosition]: removedProduct, ...remainingProducts } = products;
+
+
+        setProducts(Object.values(remainingProducts))
+        setProductToBeRemovedEntry([productPosition, removedProduct])
+
+        clearTimeout(toastDismissionTimeout.current)
+        toastDismissionTimeout.current = setTimeout(setIsToastShown, 4000, false)
+        setIsToastShown(true)
+        
+        remotionTimeout.current = setTimeout(removeProduct, 4000, id);
+    }
+
+    function undoRemotion() {
+        clearTimeout(remotionTimeout.current)
+
+        const [position, restoredProduct] = productToBeRemovedEntry,
+            productsCopy = [...products];
+
+        productsCopy.splice(position, 0, restoredProduct)
+
+        setIsToastShown(false)
+        setProducts(productsCopy)
     }
 
     useEffect(() => {
@@ -158,6 +191,10 @@ export default function ShoppingList(props) {
                 quantity={quantityDialogValue}
                 onChange={setQuantityDialogValue}
                 onConfirm={() => quantityDialogCallback(quantityDialogValue)} />
+
+            <Toast isShown={isToastShown} undo={undoRemotion}>
+                Produto removido
+            </Toast>
         </>
     )
 }
