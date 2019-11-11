@@ -16,12 +16,17 @@ export const AppContext = React.createContext()
 function App() {
 	const [isNavOpen, setIsNavOpen] = useState(false);
 
+	function toggleNav(isOpen) {
+		document.body.style.overflow = isOpen ? 'hidden' : 'auto'
+		setIsNavOpen(isOpen)
+	}
+
 	return (
 		<div id="app" className="App">
 			<Router>
-				<NavBar isOpen={isNavOpen} close={() => setIsNavOpen(false)} />
+				<NavBar isOpen={isNavOpen} close={() => toggleNav(false)} />
 
-				<AppContext.Provider value={() => setIsNavOpen(true)}>
+				<AppContext.Provider value={{ toggleNav, isNavOpen }}>
 					<Route exact path="/" component={ShoppingList} />
 					<Route path="/history" component={PurchaseHistory} />
 				</AppContext.Provider>

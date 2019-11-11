@@ -8,7 +8,7 @@ function TopBar({ isActive, value, onValueChange, onToggle, history }) {
     const [placeholderText, className] = isActive
         ? ['Produto', 'active']
         : ['Toque para adicionar', ''];
-    const openNavBar = useContext(AppContext);
+    const { toggleNav, isNavOpen } = useContext(AppContext);
 
     function activate() {
         if (isActive)
@@ -55,10 +55,12 @@ function TopBar({ isActive, value, onValueChange, onToggle, history }) {
                     value={value}
                     onClick={activate}
                     onChange={onValueChange} />
-                <button title="Open navigation bar" className="btn-icon"
-                    onClick={openNavBar}>
+                {!isNavOpen && <button  className="btn-icon" onClick={() => toggleNav(true)}>
                     <img src={process.env.PUBLIC_URL + '/menu-icon.svg'} alt="Open navigation bar" />
-                </button>
+                </button>}
+                {isNavOpen && <button className="btn-icon" onClick={() => toggleNav(false)}>
+                    <img src={process.env.PUBLIC_URL + '/close-icon.svg'} alt="Close navigation bar" />
+                </button>}
                 <button title="Cancel product addition" className="btn-icon"
                     onClick={() => history.goBack()}>
                     <img src={process.env.PUBLIC_URL + '/close-icon.svg'} alt="Cancel product addition" />
