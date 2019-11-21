@@ -18,7 +18,8 @@ body {
 	-moz-osx-font-smoothing: grayscale;
 }
 
-input, textarea {
+input,
+textarea {
 	background-color: transparent;
 }
 
@@ -56,4 +57,11 @@ button {
 
 [hidden] {
 	display: none !important;
+}
+
+hr {
+	margin: 0;
+	border: 0;
+	height: 0;
+	border-top: 1px solid rgba(0, 0, 0, 0.25);
 }

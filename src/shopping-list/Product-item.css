@@ -17,6 +17,16 @@
     background-color: var(--color-secondary);
 }
 
+.Product-item--disabled .Product-item__name,
+.Product-item--disabled .Number-spinner__input {
+    opacity: 0.43;
+}
+
+.Product-item--disabled .Number-spinner__button:last-child img,
+.Product-item--disabled .Number-spinner__button:last-child [role="img"] {
+    opacity: 0.2;
+}
+
 .Product-item__name {
     padding-right: 14px;
     flex-basis: 60%;

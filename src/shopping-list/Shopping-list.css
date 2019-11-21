@@ -1,0 +1,3 @@
+.Shopping-list hr:not(:first-of-type) {
+  display: none;
+}
