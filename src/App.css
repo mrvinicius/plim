@@ -128,16 +128,20 @@ button i {
 main {
     border-top: 1px solid rgba(0, 0, 0, 0.15);
     z-index: 1;
+    transition: transform 300ms ease-out, opacity 300ms ease-out;
 }
 
 .Nav-bar--open ~ main {
     border-top: 1px solid rgba(0, 0, 0, 0.25);
     transform: translateX(calc(-60% - 1px));
-    pointer-events: none;   
+    opacity: 0.7;
+    pointer-events: none;
 }
 
 .Nav-bar--open ~ main > * {
-    filter: blur(2px);
+    /* filter: blur(2px); */
+    /* filter: grayscale(0.5); */
+    /* filter: brightness(75%); */
 }
 
 .btn-icon {

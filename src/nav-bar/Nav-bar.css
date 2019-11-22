@@ -1,6 +1,6 @@
 .Nav-bar {
     position: absolute;
-    top: calc(var(--top-bar-height) + 1px);
+    top: calc(var(--top-bar-height));
     right: 0;
     bottom: 0;
     display: flex;

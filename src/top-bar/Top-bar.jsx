@@ -4,14 +4,14 @@ import { withRouter } from 'react-router-dom';
 import './Top-bar.css';
 import { AppContext } from '../App';
 
-function TopBar({ isActive, value, onValueChange, onToggle, history }) {
-    const [placeholderText, className] = isActive
-        ? ['Produto', 'active']
+function TopBar({ isFocused, value, onValueChange, onToggle, history }) {
+    const [placeholderText, className] = isFocused
+        ? ['Produto', 'Top-bar--focused']
         : ['Toque para adicionar', ''];
     const { toggleNav, isNavOpen } = useContext(AppContext);
 
     function activate() {
-        if (isActive)
+        if (isFocused)
             return;
 
         onToggle(true);
@@ -32,19 +32,19 @@ function TopBar({ isActive, value, onValueChange, onToggle, history }) {
     }, [onToggle])
 
     useEffect(() => {
-        if (isActive) {
+        if (isFocused) {
             window.addEventListener('popstate', memoInactivate);
         }
 
         return () => {
-            if (isActive) {
+            if (isFocused) {
                 window.removeEventListener('popstate', memoInactivate);
             }
         };
-    }, [isActive, memoInactivate]);
+    }, [isFocused, memoInactivate]);
 
     return (
-        <div className={`Top-bar ${className}`}>
+        <div className={`Top-bar ${className} ${isNavOpen && 'Top-bar--disabled'}`}>
             <div className="Top-bar__fixed-container">
                 <input type="text" placeholder={placeholderText}
                     className="big-input h100pct transparent no-outline"

@@ -16,7 +16,7 @@ import {
   removeProduct
 } from '../server-api';
 
-export default function ShoppingList(props) {
+export default function ShoppingList() {
   const [products, setProducts] = useState([]),
     [filterProductsResult, setFilterProductsResult] = useState([]),
     [productAlreadyAdded, setProductAlreadyAdded] = useState(false),
@@ -24,7 +24,7 @@ export default function ShoppingList(props) {
     [quantityDialogCallback, setQuantityDialogCallback] = useState(),
     [quantityDialogValue, setQuantityDialogValue] = useState(0),
     [topBarInputValue, setTopBarInputValue] = useState(''),
-    [isTopBarActive, setIsTopBarActive] = useState(false),
+    [isTopBarFocused, setIsTopBarFocused] = useState(false),
     [isToastShown, setIsToastShown] = useState(false),
     [productToBeRemovedEntry, setProductToBeRemovedEntry] = useState([]),
     remotionTimeout = useRef(NaN),
@@ -44,7 +44,7 @@ export default function ShoppingList(props) {
             quantity: dialogQuantity
           });
 
-        setIsTopBarActive(false);
+        setIsTopBarFocused(false);
         setIsQuantityDialogOpen(false);
       }
     });
@@ -185,12 +185,12 @@ export default function ShoppingList(props) {
 
   return (
     <>
-      <TopBar isActive={isTopBarActive}
+      <TopBar isFocused={isTopBarFocused}
         value={topBarInputValue}
         onValueChange={handleProductAdditionNameChange}
-        onToggle={(isActive) => {
-          setIsTopBarActive(isActive);
-          if (!isActive)
+        onToggle={(isFocused) => {
+          setIsTopBarFocused(isFocused);
+          if (!isFocused)
             setTopBarInputValue('');
         }} />
 
@@ -207,7 +207,7 @@ export default function ShoppingList(props) {
         }
       </main>
 
-      <TypeaheadDropdown isOpen={isTopBarActive}>
+      <TypeaheadDropdown isOpen={isTopBarFocused}>
         <TypeaheadOption key={0} hidden={!topBarInputValue.length || productAlreadyAdded}
           onClick={() => handleNewProductRequest({ name: topBarInputValue })}>
           <div className="capitalize">{topBarInputValue}</div>
