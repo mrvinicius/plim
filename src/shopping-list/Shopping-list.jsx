@@ -23,6 +23,7 @@ export default function ShoppingList() {
     [isQuantityDialogOpen, setIsQuantityDialogOpen] = useState(false),
     [quantityDialogCallback, setQuantityDialogCallback] = useState(),
     [quantityDialogValue, setQuantityDialogValue] = useState(0),
+    [quantityDialogTitle, setQuantityDialogTitle] = useState('0'),
     [topBarInputValue, setTopBarInputValue] = useState(''),
     [isTopBarFocused, setIsTopBarFocused] = useState(false),
     [isToastShown, setIsToastShown] = useState(false),
@@ -49,6 +50,7 @@ export default function ShoppingList() {
       }
     });
     setTopBarInputValue('');
+    setQuantityDialogTitle(name);
     setQuantityDialogValue(quantity);
     setIsQuantityDialogOpen(true);
   }
@@ -211,7 +213,7 @@ export default function ShoppingList() {
         <TypeaheadOption key={0} hidden={!topBarInputValue.length || productAlreadyAdded}
           onClick={() => handleNewProductRequest({ name: topBarInputValue })}>
           <div className="capitalize">{topBarInputValue}</div>
-          <span className="secondary-black-text small-text">Adicionar</span>
+          <span className="secondary-black-text small-text">adicionar</span>
         </TypeaheadOption>
 
         {topBarInputValue.length
@@ -232,6 +234,7 @@ export default function ShoppingList() {
 
       <QuantityDialog isOpen={isQuantityDialogOpen}
         close={() => setIsQuantityDialogOpen(false)}
+        title={quantityDialogTitle}
         quantity={quantityDialogValue}
         onChange={setQuantityDialogValue}
         onConfirm={() => quantityDialogCallback(quantityDialogValue)} />

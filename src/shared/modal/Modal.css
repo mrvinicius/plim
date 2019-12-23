@@ -46,10 +46,16 @@
 }
 
 .Modal__actions {
-    padding-top: 10px;
+    margin-top: 37px;
     text-align: right;
+    font-size: 20px;
+}
+
+.Modal__actions> * {
+    color: var(--color-action);
 }
 
 .Modal__actions> :first-child:not(:only-child) {
-    margin-right: 2rem;
+    float: left;
+    color: var(--color-action-secondary);
 }

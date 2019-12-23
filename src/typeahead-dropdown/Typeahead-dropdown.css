@@ -3,13 +3,28 @@
     top: 50px;
     bottom: 0;
     left: 0;
-    z-index: 10;
+
     width: 100%;
     max-height: calc(100vh - 50px);
-    overflow-y: auto;
+
     opacity: 0;
+    background-color: var(--color-secondary-light);
     transition: opacity 150ms linear;
-    pointer-events: none;
+    
+    font-size: 22px;
+
+    overflow-y: auto;
+    z-index: 10;
+    pointer-events: none   
+}
+
+.Typeahead-dropdown .captalize {
+    line-height: 0.9;
+}
+
+.Typeahead-dropdown .small-text {
+    font-size: 16px;
+    color: var(--color-static-text2);
 }
 
 .Typeahead-dropdown.open {

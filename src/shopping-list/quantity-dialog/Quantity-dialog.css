@@ -1,0 +1,16 @@
+.quantity-dialog .Modal {
+  width: 230px;
+  min-width: 230px;
+
+  background-color: var(--color-secondary-light);
+}
+
+.quantity-dialog .Modal__title {
+  color: var(--color-variable-text2);
+}
+
+.quantity-dialog .Modal__title .small-text {
+  display: block;
+  font-size: 14px;
+  color: var(--color-action-secondary);
+}

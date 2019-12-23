@@ -20,7 +20,7 @@ export default class Modal extends Component {
 
     render() {
         return (
-            <div className={`modal-overlay ${this.props.isOpen ? 'open' : ''}`}
+            <div className={`modal-overlay ${this.props.isOpen ? 'open' : ''} ${this.props.className}`}
                 onClick={this.handleOverlayClick}>
 
                 <div className="Modal" role="dialog">
