@@ -4,6 +4,8 @@ import { useSwipeable } from 'react-swipeable'
 import './Product-item.css'
 import { NumberSpinner } from '../shared'
 
+const underlayButtonSize = 115; // 115px
+
 export default function ProductItem({ name, onChange, onRemove, isDisabled, quantity = 0 }) {
   let containerElementRef = useRef(null),
     lastDeltaX = 0;
@@ -60,11 +62,11 @@ export default function ProductItem({ name, onChange, onRemove, isDisabled, quan
   }
 
   function dragLeft(lastDeltaX, deltaX) {
-    if (getTranslated() > -100) {
+    if (getTranslated() > -underlayButtonSize) {
       const swipedToLeft = deltaX - lastDeltaX,
         draggedToLeft = Math.abs(getTranslated()) + swipedToLeft;
 
-      setTranslated(-draggedToLeft > -100 ? -draggedToLeft : -100);
+      setTranslated(-draggedToLeft > -underlayButtonSize ? -draggedToLeft : -underlayButtonSize);
     }
   }
 
@@ -80,11 +82,11 @@ export default function ProductItem({ name, onChange, onRemove, isDisabled, quan
   function checkIfSwipeWasSubstantial() {
     setIsTransitionOn(true)
 
-    if (getTranslated() > -50) {
+    if (getTranslated() > -underlayButtonSize / 2) {
       setTranslated(0)
       document.removeEventListener('touchstart', dismissDragOnOutsideClick)
     } else {
-      setTranslated(-100)
+      setTranslated(-underlayButtonSize)
       document.addEventListener('touchstart', dismissDragOnOutsideClick)
     }
 
@@ -123,9 +125,10 @@ export default function ProductItem({ name, onChange, onRemove, isDisabled, quan
           quantity={quantity}
           onChange={quantity => onChange({ quantity })} />
       </div>
-      <button className="list-item__underlay-action"
+      <button className="list-item__underlay-action fw500"
         onClick={onRemove}>
-        Excluir
+        <img src={process.env.PUBLIC_URL + '/trash.svg'} alt=""/>
+        remover
                 </button>
     </div>
   )

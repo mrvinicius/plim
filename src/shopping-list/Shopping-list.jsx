@@ -240,7 +240,7 @@ export default function ShoppingList() {
         onConfirm={() => quantityDialogCallback(quantityDialogValue)} />
 
       <Toast isShown={isToastShown} undo={undoRemotion}>
-        Produto removido
+        produto removido
             </Toast>
     </>
   )

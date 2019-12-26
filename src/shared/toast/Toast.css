@@ -3,28 +3,34 @@
     right: 0;
     bottom: 0;
     left: 0;
-    z-index: 9;
-
+    
     display: flex;
+    margin: 0 auto 15px;
     padding: 15px 20px;
-    width: 100%;
+    width: 93%;
     height: 56px;
     justify-content: space-between;
     align-items: center;
-
+    
     opacity: 0;
-    transform: translateY(56px);
-    transition: opacity 200ms ease-out,
-        transform 200ms ease-out;
-
-    font-size: 1.1rem;
-    color: #fff;
-    background-color: hsla(0, 0%, 10%, 0.99);
+    transform: scale(0.7);
+    /* transform: translateY(56px); */
+    
+    font-size: 16px;
+    color: rgba(255, 255, 255, 0.8);
+    background-color: var(--color-highlight-invert);
+    
+    transition: opacity 150ms ease-out,
+    transform 150ms ease-out;
+    z-index: 9;
+    border-radius: 3px;
+    box-shadow: var(--box-shadow-highlight);
 }
 
 .Toast.is-shown {
     opacity: 1;
-    transform: translateY(0);
+    transform: scale(1);
+    /* transform: translateY(0); */
 }
 
 .Toast .Toast__undo {
@@ -37,4 +43,6 @@
 
 .Toast .Toast__undo span {
     vertical-align: middle;
+    font-size: 20px;
+    color: #ffffff;
 }

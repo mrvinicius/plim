@@ -5,11 +5,13 @@
 	--color-secondary-light: hsl(33, 96%, 73%);
 	--color-action: hsl(215, 26%, 28%);
 	--color-action-secondary: hsla(215, 26%, 28%, 78%);
-	--box-shadow-action: 0px 6px 15px rgba(0, 0, 0, 0.3);
 	--color-variable-text: hsl(264, 15%, 27%);
 	--color-variable-text2: hsl(215, 26%, 33%);
-	--color-static-text: hsl(264, 15%, 42%);
+	--color-highlight-invert: hsl(264, 15%, 42%);
 	--color-static-text2: hsl(264, 12%, 42%);
+	--color-destructive: hsl(353, 77%, 65%);
+	--box-shadow-action: 0px 6px 15px rgba(0, 0, 0, 0.3);
+	--box-shadow-highlight: 0px 8px 15px rgba(0, 0, 0, 0.4);
 	--drop-shadow-action-icon: drop-shadow(0 2px 1px rgba(0, 0, 0, 0.25));
 }
 
@@ -98,10 +100,6 @@ button i {
 	font-weight: bold;
 }
 
-.btn-flat {
-	font-weight: 600;
-}
-
 .btn__icon {
 	margin-right: 0.5em;
 }
@@ -187,9 +185,8 @@ main {
 	top: 0;
 	right: 0;
 	height: 100%;
-	width: 100px;
+	width: 115px;
 	-webkit-appearance: none;
-	font-weight: 600;
 }
 
 .invert-y {
