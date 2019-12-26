@@ -12,9 +12,9 @@ const QuantityDialog = ({ title, quantity, onChange, onConfirm, onCancel, ...mod
 			className="quantity-dialog"
 		>
 
-			{modalProps.isOpen && <NumberSpinner aria-label="Quantidade"
-				quantity={quantity}
-				onChange={onChange} />}
+			{<NumberSpinner aria-label="Quantidade"
+				quantity={modalProps.isOpen ? quantity : 0}
+				onChange={modalProps.isOpen && onChange} />}
 
 			<div className="Modal__actions">
 				<button className="button red-bg white-text"
