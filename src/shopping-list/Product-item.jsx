@@ -125,11 +125,13 @@ export default function ProductItem({ name, onChange, onRemove, isDisabled, quan
           quantity={quantity}
           onChange={quantity => onChange({ quantity })} />
       </div>
-      <button className="list-item__underlay-action fw500"
-        onClick={onRemove}>
+      <button
+        className="list-item__underlay-action fw500"
+        onClick={onRemove}
+      >
         <img src={process.env.PUBLIC_URL + '/trash.svg'} alt=""/>
         remover
-                </button>
+      </button>
     </div>
   )
 }
