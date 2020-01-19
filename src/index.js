@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 
 // import store from './store';
 import './global/fonts.css';
-import './index.css';
+import './global/index.css';
 import App from './App';
 
 // import * as serviceWorker from './serviceWorker';

@@ -1,0 +1,38 @@
+
+
+.App {
+	position: relative;
+	padding-bottom: 56px;
+	min-height: 100vh;
+}
+
+main {
+	border-top: 1px solid rgba(0, 0, 0, 0.15);
+	z-index: 1;
+	transition: transform 300ms ease-out, opacity 300ms ease-out;
+}
+
+.Nav-bar--open~main {
+	border-top: 1px solid rgba(0, 0, 0, 0.25);
+	transform: translateX(calc(-60% - 1px));
+	opacity: 0.7;
+	pointer-events: none;
+}
+
+/* .Nav-bar--open~main>* {
+	filter: blur(2px);
+	filter: grayscale(0.5);
+	filter: brightness(75%);
+} */
+
+
+.Top-bar .btn-icon,
+.Nav-bar .btn-icon {
+	padding: 0 var(--side-gaps-width);
+}
+
+.Top-bar .btn-icon img,
+.Nav-bar .btn-icon img {
+	height: 30px;
+}
+
