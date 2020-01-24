@@ -2,7 +2,7 @@ import React, { useEffect, useCallback, useContext } from 'react';
 import { withRouter } from 'react-router-dom';
 
 import './Top-bar.css';
-import { AppContext } from '../App';
+import { AppContext } from '../../Authenticated-app';
 
 function TopBar({ isFocused, value, onValueChange, onToggle, history }) {
     const [placeholderText, className] = isFocused
