@@ -6,8 +6,8 @@ import {
 } from "react-router-dom";
 
 import './Authenticated-app.css';
-import NavBar from './nav-bar';
-// import BottomBar from './bottom-bar/Bottom-bar';
+import NavBar from './global/nav-bar';
+// import BottomBar from './global/bottom-bar/Bottom-bar';
 import ShoppingList from './shopping-list/Shopping-list';
 import PurchaseHistory from './purchase-history/Purchase-history';
 

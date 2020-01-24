@@ -3,9 +3,9 @@ import fuzzysort from 'fuzzysort';
 
 import './Shopping-list.css';
 
-import TopBar from '../top-bar';
+import TopBar from '../shared/top-bar';
 import ProductItem from './Product-item';
-import TypeaheadDropdown, { TypeaheadOption } from '../typeahead-dropdown';
+import TypeaheadDropdown, { TypeaheadOption } from '../shared/typeahead-dropdown';
 import QuantityDialog from './quantity-dialog';
 import Toast from '../shared/toast';
 import { normalizeText, arrayMove } from '../shared/utils';
@@ -14,7 +14,7 @@ import {
   addProduct,
   updateProduct,
   removeProduct
-} from '../server-api';
+} from './product-api';
 
 export default function ShoppingList() {
   const [products, setProducts] = useState([]),
