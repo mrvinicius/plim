@@ -241,7 +241,7 @@ export default function ShoppingList() {
 
       <Toast isShown={isToastShown} undo={undoRemotion}>
         produto removido
-            </Toast>
+      </Toast>
     </>
   )
 }

@@ -22,7 +22,7 @@ function App() {
 	}
 
 	return (
-		<div id="app" className="App">
+		<div className="App">
 			<Router>
 				<NavBar isOpen={isNavOpen} close={() => toggleNav(false)} />
 
