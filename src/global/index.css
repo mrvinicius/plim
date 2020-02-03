@@ -5,14 +5,18 @@
 	--top-bar-height: 80px;
 	--color-secondary: hsl(33, 96%, 71%);
 	--color-secondary-light: hsl(33, 96%, 73%);
+	--color-action-dark: hsl(215, 26%, 23%);
+	--color-action-dark-inactive: hsla(215, 26%, 23%, 70%);
 	--color-action: hsl(215, 26%, 28%);
 	--color-action-secondary: hsla(215, 26%, 28%, 78%);
 	--color-variable-text: hsl(264, 15%, 27%);
 	--color-variable-text2: hsl(215, 26%, 33%);
 	--color-highlight-invert: hsl(264, 15%, 42%);
+	--color-static-text-dark: hsl(215, 26%, 23%);
+	--color-static-text-light: hsl(215, 26%, 38%);
 	--color-static-text2: hsl(264, 12%, 42%);
 	--color-destructive: hsl(353, 77%, 65%);
-	--box-shadow-action: 0px 6px 15px rgba(0, 0, 0, 0.3);
+	--box-shadow-action: 0px 6px 15px rgba(29, 23, 23, 0.3);
 	--box-shadow-highlight: 0px 8px 15px rgba(0, 0, 0, 0.4);
 	--drop-shadow-action-icon: drop-shadow(0 2px 1px rgba(0, 0, 0, 0.25));
 }
@@ -71,6 +75,14 @@ button {
 button img,
 button i {
 	vertical-align: middle;
+}
+
+a:active {
+	color: #0347A5;
+}
+a,
+a:visited {
+	color: var(--color-action);
 }
 
 input[type=number],
@@ -151,6 +163,18 @@ hr {
 
 .capitalize {
 	text-transform: capitalize;
+}
+
+.mb0 {
+	margin-bottom: 0 !important;
+}
+
+.mt0 {
+	margin-top: 0 !important;
+}
+
+.mt05em {
+	margin-top: 0.5em;
 }
 
 .btn {

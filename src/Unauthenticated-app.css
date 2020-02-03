@@ -1,0 +1,30 @@
+.Unauthenticated-app {
+  padding: 30px;
+  max-height: 100vh;
+  /* overflow: hidden; */
+}
+
+.Unauthenticated-app__forget {
+  margin-bottom: 30px;
+  font-size: 15px;
+}
+
+.Unauthenticated-app__text {
+  margin-bottom: 62px;
+  margin-left: 3px;
+  font-size: 18px;
+  color: var(--color-action-secondary);
+}
+
+.Unauthenticated-app__text a {
+  /* font-weight: 500; */
+}
+
+.Unauthenticated-app > .Button:last-child {
+  margin-top: 62px;
+}
+
+.Unauthenticated-app__title {
+  font-size: 48px;
+  color: var(--color-variable-text2);
+}

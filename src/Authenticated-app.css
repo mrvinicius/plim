@@ -6,7 +6,7 @@
 	min-height: 100vh;
 }
 
-main {
+.App main {
 	border-top: 1px solid rgba(0, 0, 0, 0.15);
 	z-index: 1;
 	transition: transform 300ms ease-out, opacity 300ms ease-out;
