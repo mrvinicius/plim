@@ -6,11 +6,9 @@ export function onAuthStateChanged(callback) {
   auth.onAuthStateChanged(callback)
 }
 
-// export function getUser(params) {
-
-//   return Promise.resolve({})
-//   // return Promise.resolve(null)
-// }
+export function getCurrentUser() {
+  return auth.currentUser // name, email, photoUrl, uid, emailVerified;
+}
 
 export function register({ email, password }) {
   return auth.createUserWithEmailAndPassword(email, password)

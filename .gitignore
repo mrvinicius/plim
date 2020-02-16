@@ -25,3 +25,5 @@ yarn-error.log*
 
 # text editor config
 /.vscode
+
+.notes
