@@ -1,7 +1,6 @@
 .Unauthenticated-app {
   padding: 30px;
   max-height: 100vh;
-  /* overflow: hidden; */
 }
 
 .Unauthenticated-app__forget {
@@ -16,12 +15,8 @@
   color: var(--color-action-secondary);
 }
 
-.Unauthenticated-app__text a {
-  /* font-weight: 500; */
-}
-
 .Unauthenticated-app > .Button:last-child {
-  margin-top: 62px;
+  margin-top: 32px;
 }
 
 .Unauthenticated-app__title {

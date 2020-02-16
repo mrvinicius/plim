@@ -1,40 +1,27 @@
 import firebase from '../firebase'
 
-const localStorageKey = 'plim_token'
+const auth = firebase.auth()
 
-export function getUser(params) {
-
-  // return Promise.resolve({})
-  return Promise.resolve(null)
+export function onAuthStateChanged(callback) {
+  auth.onAuthStateChanged(callback)
 }
 
+// export function getUser(params) {
+
+//   return Promise.resolve({})
+//   // return Promise.resolve(null)
+// }
+
 export function register({ email, password }) {
-  firebase.auth()
-    .createUserWithEmailAndPassword(email, password)
-    .catch(function (error) {
-      // Handle Errors here.
-      // const errorCode = error.code;
-      // const errorMessage = error.message;
-      // ...
-    });
+  return auth.createUserWithEmailAndPassword(email, password)
+    .then(r => r)
 }
 
 export function login({ email, password }) {
-  firebase.auth()
-    .signInWithEmailAndPassword(email, password)
-    .catch(function (error) {
-      // Handle Errors here.
-      // var errorCode = error.code;
-      // var errorMessage = error.message;
-      // ...
-    });
+  return auth.signInWithEmailAndPassword(email, password)
+    .then(r => r)
 }
 
 export function logout() {
-  window.localStorage.removeItem(localStorageKey)
-  return Promise.resolve()
-}
-
-export function getToken() {
-  return window.localStorage.getItem(localStorageKey)
+  auth.signOut()
 }

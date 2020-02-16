@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import {
 	BrowserRouter as Router,
 	Route,
+	Redirect,
 	// Switch
 } from "react-router-dom";
 
@@ -13,7 +14,7 @@ import PurchaseHistory from './purchase-history/Purchase-history';
 
 export const AppContext = React.createContext()
 
-function App() {
+function AuthenticatedApp() {
 	const [isNavOpen, setIsNavOpen] = useState(false);
 
 	function toggleNav(isOpen) {
@@ -29,6 +30,8 @@ function App() {
 				<AppContext.Provider value={{ toggleNav, isNavOpen }}>
 					<Route exact path="/" component={ShoppingList} />
 					<Route path="/history" component={PurchaseHistory} />
+					<Route path="/entrar" render={props => <Redirect to="/" />} />
+					<Route path="/cadastro" render={props => <Redirect to="/" />} />
 				</AppContext.Provider>
 
 				{/* <BottomBar>
@@ -52,4 +55,4 @@ function App() {
 }
 
 
-export default App;
+export default AuthenticatedApp;

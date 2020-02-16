@@ -22,17 +22,14 @@
     color: var(--color-action);
 }
 
-.Nav-bar__links>* {
+.Nav-bar__links a, .Nav-bar__links button {
     flex-grow: 1;
     line-height: 2.5;
     font-size: 24px;
     font-weight: 600;
+    color: var(--color-action);
 }
 
 .Nav-bar__links>* a {
     text-decoration: none;
-}
-
-.Nav-bar__links>* a:visited {
-    color: var(--color-action);
 }

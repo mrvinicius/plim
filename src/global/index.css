@@ -46,6 +46,8 @@ textarea {
 }
 
 /* reset input */
+[type="email"],
+[type="password"],
 [type="text"],
 [type="number"] {
 	border: none;

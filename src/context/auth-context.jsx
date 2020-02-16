@@ -4,13 +4,13 @@ import * as authClient from '../shared/auth-client'
 const AuthContext = React.createContext()
 
 function AuthProvider(props) { 
-  const login = form => authClient.login(form)//.then(reload)
-  const register = form => authClient.register(form)//.then(reload)
-  const logout = () => authClient.logout()//.then(reload)
+  const login = form => authClient.login(form)
+  const register = form => authClient.register(form)
+  const logout = () => authClient.logout()
   const [data, setData] = React.useState({ user: null })
   
   React.useEffect(() => {
-    authClient.getUser().then(user => setData({ user }))
+    authClient.onAuthStateChanged(user => setData({ user }))
   }, []);
 
   return (
@@ -20,6 +20,7 @@ function AuthProvider(props) {
 
 function useAuth() {
   const context = React.useContext(AuthContext)
+  
   if (context === undefined) {
     throw new Error(`useAuth must be used within a AuthProvider`)
   }
