@@ -1,5 +1,5 @@
 .Top-bar {
-    height: 80px;
+    /* height: 80px; */
     height: var(--top-bar-height);
 }
 

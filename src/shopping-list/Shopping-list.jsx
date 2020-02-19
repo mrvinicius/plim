@@ -15,8 +15,10 @@ import {
   updateProduct,
   removeProduct
 } from './product-api';
+import { useAuth } from '../context/auth-context'
 
 export default function ShoppingList() {
+  const { data: { user } } = useAuth()
   const [products, setProducts] = useState([]),
     [filterProductsResult, setFilterProductsResult] = useState([]),
     [productAlreadyAdded, setProductAlreadyAdded] = useState(false),
@@ -178,12 +180,12 @@ export default function ShoppingList() {
   }
 
   useEffect(() => {
-    listProducts().then(prods => setProducts(
-      prods
+    listProducts(user.uid).then(products => setProducts(
+      products
         .sort((a, _) => a.quantity === 0 ? 0 : -1)
         .map(p => ({ ...p, searchableName: normalizeText(p.name), isDisabled: p.quantity <= 0 }))
     ));
-  }, []);
+  }, [user.uid]);
 
   return (
     <>

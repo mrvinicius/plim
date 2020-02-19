@@ -9,6 +9,7 @@
     height: calc(100vh - var(--top-bar-height));
     align-items: center;
     background: rgba(0, 0, 0, 0.1);
+    z-index: -1;
 }
 
 .Nav-bar--open {
@@ -23,8 +24,9 @@
 }
 
 .Nav-bar__links a, .Nav-bar__links button {
-    flex-grow: 1;
+    width: 100%;
     line-height: 2.5;
+    text-align: left;
     font-size: 24px;
     font-weight: 600;
     color: var(--color-action);
