@@ -23,7 +23,7 @@ export function TypeaheadOption({ children, onSelect, onComplete, ...optionProps
             </button>
             <button className="list__right-item" onClick={onComplete}
                 hidden={!onComplete}>
-                <img src={process.env.PUBLIC_URL + '/arrow-up-left.svg'}
+                <img src={process.env.PUBLIC_URL + '/icons/arrow-up-left.svg'}
                     alt="Complete" />
             </button>
         </li>

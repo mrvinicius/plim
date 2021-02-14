@@ -21,12 +21,12 @@ export default function NumberSpinner({ quantity = 0, min = 0, max = 99, onChang
       <button aria-label="Aumentar"
         className="Number-spinner__button"
         onClick={() => update(quantity + 1)}>
-        <img className="invert-y" src={process.env.PUBLIC_URL + '/chevron-white.svg'} alt="" />
+        <img className="invert-y" src={process.env.PUBLIC_URL + '/icons/chevron-white.svg'} alt="" />
       </button>
       <button aria-label="Diminuir"
         className="Number-spinner__button"
         onClick={() => update(quantity - 1)}>
-        <img src={process.env.PUBLIC_URL + '/chevron-white.svg'} alt="" />
+        <img src={process.env.PUBLIC_URL + '/icons/chevron-white.svg'} alt="" />
       </button>
     </div>
   )

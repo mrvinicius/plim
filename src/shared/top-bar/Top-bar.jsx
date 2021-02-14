@@ -56,14 +56,14 @@ function TopBar({ isFocused, value, onValueChange, onToggle, history }) {
                     onClick={activate}
                     onChange={onValueChange} />
                 {!isNavOpen && <button  className="btn-icon" onClick={() => toggleNav(true)}>
-                    <img src={process.env.PUBLIC_URL + '/menu-icon.svg'} alt="Open navigation bar" />
+                    <img src={process.env.PUBLIC_URL + '/icons/menu-icon.svg'} alt="Open navigation bar" />
                 </button>}
                 {isNavOpen && <button className="btn-icon" onClick={() => toggleNav(false)}>
-                    <img src={process.env.PUBLIC_URL + '/close-icon.svg'} alt="Close navigation bar" />
+                    <img src={process.env.PUBLIC_URL + '/icons/close-icon.svg'} alt="Close navigation bar" />
                 </button>}
                 <button title="Cancel product addition" className="btn-icon"
                     onClick={() => history.goBack()}>
-                    <img src={process.env.PUBLIC_URL + '/close-icon.svg'} alt="Cancel product addition" />
+                    <img src={process.env.PUBLIC_URL + '/icons/close-icon.svg'} alt="Cancel product addition" />
                 </button>
             </div>
         </div>

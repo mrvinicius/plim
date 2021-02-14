@@ -7,7 +7,7 @@ export default function Toast({ isShown, children, undo }) {
             {children}
             {undo &&
                 <button className="Toast__undo fw500" onClick={undo}>
-                    <img src={process.env.PUBLIC_URL + '/corner-up-left.svg'}
+                    <img src={process.env.PUBLIC_URL + '/icons/corner-up-left.svg'}
                         role="presentation" alt=""/>
                     <span>Desfazer</span>
                 </button>
