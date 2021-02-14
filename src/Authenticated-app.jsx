@@ -38,7 +38,7 @@ function AuthenticatedApp() {
 					<Switch>
 						<Route exact path="/" render={() =>
 							<button className="btn black-light">
-								<img src={process.env.PUBLIC_URL + '/play-circle.svg'} className="btn__icon" alt="" />
+								<img src={process.env.PUBLIC_URL + '/icons/play-circle.svg'} className="btn__icon" alt="" />
 								Iniciar compra
 							</button>
 						} />
