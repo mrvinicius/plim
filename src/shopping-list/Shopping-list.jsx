@@ -123,6 +123,11 @@ export default function ShoppingList() {
             newPositionIndex
           )
           setProducts(reorderedProducts)
+          try {
+            updateProduct(productData)
+          } catch (error) {
+            console.error(error);
+          }
           return
         } else if (changedProduct.isDisabled && productData.quantity > 0) {
           productsCopy[changedProductIndex].isDisabled = false
@@ -138,6 +143,11 @@ export default function ShoppingList() {
             newPositionIndex
           )
           setProducts(reorderedProducts)
+          try {
+            updateProduct(productData)
+          } catch (error) {
+            console.error(error);
+          }
           return
         }
       }

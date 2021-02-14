@@ -1,4 +1,4 @@
-import { partial } from '../shared/utils'
+// import { partial } from '../shared/utils'
 import firebase from '../firebase'
 
 const db = firebase.firestore()
@@ -21,29 +21,42 @@ function listProducts(userId) {
         })
 }
 
-function fetchProducts(data, product) {
-    const URI = `/products${product && product.id ? `/${product.id}` : '/'}`;
-
-    return fetch(URI, {
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        ...data,
-        body: product && JSON.stringify(product)
-    }).then(response => response.json());
+function addProduct(params) {
+    
 }
 
-const addProduct = partial(fetchProducts, { method: 'POST' });
-const updateProduct = partial(fetchProducts, { method: 'PATCH' });
+function updateProduct(productData) {
+    console.log(productData)
+    return productsRef.doc(productData.id)
+        .update(productData)
+}
+
+function removeProduct(params) {
+    
+}
+
+// function fetchProducts(data, product) {
+//     const URI = `/products${product && product.id ? `/${product.id}` : '/'}`;
+
+//     return fetch(URI, {
+//         headers: {
+//             'Content-Type': 'application/json'
+//         },
+//         ...data,
+//         body: product && JSON.stringify(product)
+//     }).then(response => response.json());
+// }
+
+// const addProduct = partial(fetchProducts, { method: 'POST' });
+// const updateProduct = partial(fetchProducts, { method: 'PATCH' });
 // const listProducts = () => fetch('/products').then(response => response.json());
 // const searchProducts = name => fetch('/products/q=${name}').then(response => response.json());
 // const getProduct = id => fetch(`/products/${id}`).then(response => response.json());
-const removeProduct = id => fetch(`/products/${id}`, { method: 'DELETE' }).then(response => response.json());
+// const removeProduct = id => fetch(`/products/${id}`, { method: 'DELETE' }).then(response => response.json());
 
 export {
     addProduct,
     updateProduct,
     listProducts,
     removeProduct,
-    // getProducts,
 };
